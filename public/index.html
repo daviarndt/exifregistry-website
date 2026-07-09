@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>exifregistry — the photographer's metadata toolkit</title>
-<meta name="description" content="Free, open-source CLI for photographers: inspect and fix EXIF metadata (GPS, dates), organize photos into folders, frame and resize — 100% on your machine, never touching a pixel or an original.">
+<title>exifregistry · The photographer's metadata toolkit</title>
+<meta name="description" content="Free, open-source CLI for photographers: inspect and fix EXIF metadata (GPS, dates), organize photos into folders, frame and resize. Runs 100% on your machine and never touches a pixel or an original.">
 <link rel="canonical" href="https://exifregistry.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://exifregistry.com/">
-<meta property="og:title" content="exifregistry — the photographer's metadata toolkit">
-<meta property="og:description" content="Inspect, fix, organize and publish your photos from the terminal — without ever touching a pixel or losing an original. Free, open-source, runs 100% locally.">
+<meta property="og:title" content="exifregistry · The photographer's metadata toolkit">
+<meta property="og:description" content="Inspect, fix and organize your photos from the terminal. Never touches a pixel, never loses an original. Free, open-source, runs 100% locally.">
 <meta property="og:image" content="https://exifregistry.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="exifregistry — the photographer's metadata toolkit">
+<meta name="twitter:title" content="exifregistry · The photographer's metadata toolkit">
 <meta name="twitter:description" content="Free, open-source photo metadata CLI. Runs 100% on your machine.">
 <meta name="twitter:image" content="https://exifregistry.com/og.png">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF4EC">
@@ -53,6 +53,18 @@
   a{color:var(--link);text-decoration:none}
   a:hover{color:var(--accent-strong)}
   ::selection{background:var(--accent);color:#fff}
+  @media (max-width:940px){
+    .hero-grid{grid-template-columns:minmax(0,1fr) !important;padding-top:44px !important;gap:36px !important}
+    .pillars-grid{grid-template-columns:minmax(0,1fr) !important}
+    .teaser-grid{grid-template-columns:minmax(0,1fr) !important;padding:26px !important;gap:26px !important}
+    .promise-grid{grid-template-columns:repeat(2,1fr) !important}
+  }
+  @media (max-width:640px){
+    .promise-grid{grid-template-columns:1fr !important}
+    .nav-link{display:none !important}
+    .bmc-label{display:none}
+    .install-box{width:100%;font-size:12px !important;gap:9px !important;padding-left:12px !important}
+  }
   @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
   @keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
@@ -69,27 +81,27 @@
         <span style="font-family:'Space Mono',ui-monospace,monospace;font-weight:700;font-size:17px;letter-spacing:-.02em">exifregistry</span>
       </a>
       <div style="flex:1"></div>
-      <a href="#pillars" style="font-size:14px;color:var(--fg-2)">Features</a>
-      <a href="#commands" style="font-size:14px;color:var(--fg-2)">Commands</a>
-      <a href="#brand" style="font-size:14px;color:var(--fg-2)">Brand</a>
-      <a href="https://github.com/daviarndt/exifregistry" style="font-size:14px;color:var(--fg-2)">GitHub</a>
+      <a href="#pillars" class="nav-link" style="font-size:14px;color:var(--fg-2)">Features</a>
+      <a href="#commands" class="nav-link" style="font-size:14px;color:var(--fg-2)">Commands</a>
+      <a href="https://github.com/daviarndt/exifregistry" class="nav-link" style="font-size:14px;color:var(--fg-2)">GitHub</a>
+      <a href="https://buymeacoffee.com/daviarndtx" style-hover="border-color:var(--accent)" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--fg);border:1px solid var(--border-strong);background:var(--surface);border-radius:999px;padding:7px 13px;white-space:nowrap;transition:border-color .2s">☕<span class="bmc-label"> Buy me a coffee</span></a>
       <button onClick="{{ toggleTheme }}" aria-label="Toggle color theme" style="width:36px;height:36px;border-radius:9px;border:1px solid var(--border-strong);background:var(--surface);color:var(--fg);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:background .2s">{{ themeIcon }}</button>
     </nav>
   </header>
 
   <main id="top">
   <!-- HERO -->
-  <section style="max-width:1120px;margin:0 auto;padding:76px 24px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center">
+  <section class="hero-grid" style="max-width:1120px;margin:0 auto;padding:76px 24px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center">
     <div style="min-width:0">
       <div style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12.5px;color:var(--fg-muted);border:1px solid var(--border-strong);border-radius:999px;padding:5px 12px;margin-bottom:24px">
         <span style="color:var(--accent)">$</span> npm · MIT · zero setup
       </div>
       <h1 style="font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(38px,5.4vw,60px);line-height:1.02;letter-spacing:-.035em;margin:0 0 20px">exif<span style="color:var(--accent)">registry</span></h1>
       <p style="font-size:clamp(19px,2.4vw,23px);color:var(--fg);font-weight:500;margin:0 0 12px;max-width:30ch">The photographer's metadata toolkit.</p>
-      <p style="font-size:16.5px;color:var(--fg-2);margin:0 0 30px;max-width:46ch">Inspect, fix, organize and publish your photos from the terminal — without ever touching a pixel or losing an original.</p>
+      <p style="font-size:16.5px;color:var(--fg-2);margin:0 0 30px;max-width:46ch">Inspect, fix and organize your photos from the terminal. It never touches a pixel, and it never loses an original.</p>
 
       <div style="display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-bottom:16px">
-        <div style="display:flex;align-items:center;gap:14px;background:var(--term-bg);border:1px solid var(--term-border);border-radius:12px;padding:0 6px 0 16px;height:52px;font-family:'Space Mono',monospace;font-size:14.5px;box-shadow:var(--shadow)">
+        <div class="install-box" style="display:flex;align-items:center;gap:14px;background:var(--term-bg);border:1px solid var(--term-border);border-radius:12px;padding:0 6px 0 16px;height:52px;font-family:'Space Mono',monospace;font-size:14.5px;box-shadow:var(--shadow);max-width:100%">
           <span style="color:var(--term-prompt)">$</span>
           <span style="color:var(--term-fg);white-space:nowrap">npm install -g exifregistry</span>
           <button onClick="{{ copyInstall }}" style="margin-left:6px;border:none;background:rgba(255,255,255,.07);color:var(--term-dim);cursor:pointer;font-family:'Space Mono',monospace;font-size:12px;height:38px;padding:0 14px;border-radius:8px;transition:background .2s">{{ copyLabel }}</button>
@@ -111,7 +123,7 @@
         <span style="width:12px;height:12px;border-radius:50%;background:#E06C5B"></span>
         <span style="width:12px;height:12px;border-radius:50%;background:#E6B24A"></span>
         <span style="width:12px;height:12px;border-radius:50%;background:#7FB463"></span>
-        <span style="flex:1;text-align:center;font-family:'Space Mono',monospace;font-size:12px;color:var(--term-dim);margin-right:44px">exifreg — zsh</span>
+        <span style="flex:1;text-align:center;font-family:'Space Mono',monospace;font-size:12px;color:var(--term-dim);margin-right:44px">exifreg</span>
       </div>
       <div style="background:var(--term-bg);padding:20px 18px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.62;color:var(--term-fg);overflow-x:auto">
 <div style="white-space:pre"><span style="color: var(--term-prompt);">$</span> exifreg show IMG_4021.CR3</div>
@@ -134,11 +146,11 @@
 
   <!-- PROMISE STRIP -->
   <section style="max-width:1120px;margin:20px auto 0;padding:0 24px">
-    <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;box-shadow:var(--shadow)">
+    <div class="promise-grid" style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;box-shadow:var(--shadow)">
       <div style="grid-column:1/-1;padding:16px 18px 6px;display:flex;align-items:center;gap:12px">
         <span style="font-family:'Space Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">Safe by default</span>
         <span style="flex:1;height:1px;background:var(--border)"></span>
-        <span style="font-size:13px;color:var(--fg-muted)">these files are your life's work — we treat them that way</span>
+        <span style="font-size:13px;color:var(--fg-muted)">these files are your life's work, and the tool treats them that way</span>
       </div>
       <sc-for list="{{ promises }}" as="p" hint-placeholder-count="4">
         <div style="padding:16px 18px;border-radius:11px">
@@ -157,11 +169,11 @@
       <h2 style="font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(28px,3.6vw,38px);letter-spacing:-.03em;margin:0;max-width:20ch">Everything around the image.</h2>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+    <div class="pillars-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px">
       <!-- Inspect -->
       <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)">
         <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px"><span style="font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);font-weight:700">01</span><h3 style="font-size:20px;margin:0;font-weight:600">Inspect</h3></div>
-        <p style="font-size:14.5px;color:var(--fg-2);margin:0 0 18px">Beautiful terminal reports of camera, lens, shutter count and GPS — exportable to Markdown.</p>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0 0 18px">Beautiful terminal reports of camera, lens, shutter count and GPS, with one-flag export to Markdown.</p>
         <div style="background:var(--term-bg);border-radius:10px;padding:14px 16px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.6;color:var(--term-fg);white-space:pre;overflow-x:auto"><span style="color: var(--term-prompt);">$</span> exifreg show IMG_4021.CR3 -e report.md
 <span style="color: var(--term-green);">✓</span> Exported metadata report to <span style="color: var(--term-dim);">report.md</span></div>
       </div>
@@ -169,8 +181,8 @@
       <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)">
         <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px"><span style="font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);font-weight:700">02</span><h3 style="font-size:20px;margin:0;font-weight:600">Fix metadata</h3></div>
         <p style="font-size:14.5px;color:var(--fg-2);margin:0 0 18px">Set GPS from map coordinates, shift wrong clocks, copy tags between files, or strip everything. Every edit keeps a backup.</p>
-        <div style="background:var(--term-bg);border-radius:10px;padding:14px 16px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.6;color:var(--term-fg);white-space:pre;overflow-x:auto"><span style="color: var(--term-prompt);">$</span> exifreg gps beach.jpg --coords <span style="color: var(--term-green);">"-23.5505, -46.6333"</span>
-<span style="color: var(--term-green);">✓</span> Set GPS of beach.jpg · <span style="color: var(--term-dim);">backup saved</span></div>
+        <div style="background:var(--term-bg);border-radius:10px;padding:14px 16px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.6;color:var(--term-fg);white-space:pre;overflow-x:auto"><span style="color: var(--term-prompt);">$</span> exifreg gps beach.jpg --coords <span style="color: var(--term-green);">"-23.5505, -46.6333"</span><span style="color: var(--term-green);">
+✓</span> Set GPS of beach.jpg · <span style="color: var(--term-dim);">backup saved</span></div>
       </div>
       <!-- Organize -->
       <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)">
@@ -212,11 +224,11 @@
 
   <!-- INTERACTIVE TEASER -->
   <section style="max-width:1120px;margin:0 auto;padding:48px 24px 40px">
-    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;border:1px solid var(--border);border-radius:20px;background:var(--surface);padding:40px;box-shadow:var(--shadow)">
+    <div class="teaser-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;border:1px solid var(--border);border-radius:20px;background:var(--surface);padding:40px;box-shadow:var(--shadow)">
       <div>
         <div style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:12px">// no flags to memorize</div>
         <h2 style="font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(26px,3.2vw,34px);letter-spacing:-.03em;margin:0 0 14px">Just run <span style="color:var(--accent)">exifreg</span></h2>
-        <p style="font-size:16px;color:var(--fg-2);margin:0;max-width:42ch">Run it bare and exifregistry opens a guided interactive mode — pick what you need from a menu and it walks you through the rest.</p>
+        <p style="font-size:16px;color:var(--fg-2);margin:0;max-width:42ch">Run it bare and exifregistry opens a guided interactive mode. Pick what you need from a menu and it walks you through the rest.</p>
       </div>
       <div style="border-radius:12px;overflow:hidden;border:1px solid var(--term-border);box-shadow:var(--shadow)">
         <div style="background:#1c1512;height:34px;display:flex;align-items:center;gap:7px;padding:0 13px"><span style="width:11px;height:11px;border-radius:50%;background:#E06C5B"></span><span style="width:11px;height:11px;border-radius:50%;background:#E6B24A"></span><span style="width:11px;height:11px;border-radius:50%;background:#7FB463"></span></div>
@@ -245,17 +257,17 @@
       <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)">
         <div style="font-family:'Space Mono',monospace;font-size:20px;color:var(--accent);margin-bottom:10px">⌂</div>
         <h3 style="font-size:17px;margin:0 0 6px;font-weight:600">Local by design</h3>
-        <p style="font-size:14.5px;color:var(--fg-2);margin:0;line-height:1.55">Every command runs offline, on your computer — even GPS-to-city lookups use a bundled database. Your photos, locations and client work never leave your disk. No cloud, no uploads, no telemetry, no account.</p>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0;line-height:1.55">Every command runs offline, on your computer. Even GPS-to-city lookups use a bundled database. Your photos, locations and client work never leave your disk. No cloud, no uploads, no telemetry, no account.</p>
       </div>
       <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)">
         <div style="font-family:'Space Mono',monospace;font-size:20px;color:var(--accent);margin-bottom:10px">◇</div>
         <h3 style="font-size:17px;margin:0 0 6px;font-weight:600">Free &amp; open-source</h3>
-        <p style="font-size:14.5px;color:var(--fg-2);margin:0;line-height:1.55">MIT-licensed and free forever — no paywalls, no pro tier, no locked features. Every line of code is public on <a href="https://github.com/daviarndt/exifregistry">GitHub</a>, so you can verify exactly what touches your files.</p>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0;line-height:1.55">MIT licensed and free forever: no paywalls, no pro tier, no locked features. Every line of code is public on <a href="https://github.com/daviarndt/exifregistry">GitHub</a>, so you can verify exactly what touches your files.</p>
       </div>
       <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)">
         <div style="font-family:'Space Mono',monospace;font-size:20px;color:var(--accent);margin-bottom:10px">✎</div>
         <h3 style="font-size:17px;margin:0 0 6px;font-weight:600">Maintained by a photographer</h3>
-        <p style="font-size:14.5px;color:var(--fg-2);margin:0;line-height:1.55">This isn't a side demo — it's the tool its author uses on real shoots, so it keeps getting fixed and sharpened. From a photographer, for photographers.</p>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0;line-height:1.55">This is not a side demo. It is the tool its author uses on real shoots, so it keeps getting fixed and sharpened. From a photographer, for photographers.</p>
       </div>
     </div>
     <div style="margin-top:22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
@@ -264,66 +276,6 @@
     </div>
   </section>
 
-  <!-- BRAND / STYLE GUIDE -->
-  <section id="brand" style="max-width:1120px;margin:0 auto;padding:70px 24px 30px">
-    <div style="margin-bottom:34px">
-      <div style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:12px">// visual identity</div>
-      <h2 style="font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(28px,3.6vw,38px);letter-spacing:-.03em;margin:0">The brand kit.</h2>
-    </div>
-
-    <!-- logo lockups -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px">
-      <div style="border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;min-height:150px">
-        <svg viewBox="0 0 32 32" width="52" height="52" aria-label="exifregistry symbol"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="M4 10V4H10"></path><path d="M22 4H28V10"></path><path d="M28 22V28H22"></path><path d="M10 28H4V22"></path></g><rect x="12" y="12" width="8" height="8" rx="1.5" fill="var(--accent)"></rect></svg>
-        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--fg-muted);letter-spacing:.1em">SYMBOL</span>
-      </div>
-      <div style="border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;min-height:150px">
-        <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:30px;letter-spacing:-.03em">exif<span style="color:var(--accent)">registry</span></span>
-        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--fg-muted);letter-spacing:.1em">WORDMARK</span>
-      </div>
-      <div style="border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;min-height:150px">
-        <div style="display:flex;align-items:center;gap:12px">
-          <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"><path d="M4 10V4H10"></path><path d="M22 4H28V10"></path><path d="M28 22V28H22"></path><path d="M10 28H4V22"></path></g><rect x="12" y="12" width="8" height="8" rx="1.5" fill="var(--accent)"></rect></svg>
-          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:26px;letter-spacing:-.03em">exif<span style="color:var(--accent)">registry</span></span>
-        </div>
-        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--fg-muted);letter-spacing:.1em">HORIZONTAL LOCKUP</span>
-      </div>
-    </div>
-
-    <!-- type -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px">
-      <div style="border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:28px">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px"><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px">Space Mono</span><span style="font-size:12px;color:var(--fg-muted);font-family:'Space Mono',monospace">display · code · captions</span></div>
-        <div style="font-family:'Space Mono',monospace;font-weight:700;font-size:38px;letter-spacing:-.03em;line-height:1;margin-bottom:6px">Aa Bb 0123</div>
-        <div style="font-family:'Space Mono',monospace;font-size:14px;color:var(--fg-2)">f/2.8 · 1/250s · ISO 400 · 35mm</div>
-      </div>
-      <div style="border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:28px">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px"><span style="font-weight:600;font-size:16px">IBM Plex Sans</span><span style="font-size:12px;color:var(--fg-muted);font-family:'Space Mono',monospace">body · UI</span></div>
-        <div style="font-weight:600;font-size:38px;letter-spacing:-.01em;line-height:1;margin-bottom:6px">Aa Bb 0123</div>
-        <div style="font-size:14px;color:var(--fg-2)">The quiet confidence of a well-made tool.</div>
-      </div>
-    </div>
-
-    <!-- palette (mirrors `exifreg frame --colors`) -->
-    <div style="border:1px solid var(--border);border-radius:14px;background:var(--surface);overflow:hidden">
-      <div style="background:var(--term-bg);padding:12px 18px;font-family:'Space Mono',monospace;font-size:12.5px;color:var(--term-fg)"><span style="color:var(--term-prompt)">$</span> exifreg frame --colors</div>
-      <div style="padding:22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:14px">
-        <sc-for list="{{ palette }}" as="s" hint-placeholder-count="21">
-          <div>
-            <div style="height:56px;border-radius:8px;border:1px solid var(--border-strong);background:{{ s.hex }}"></div>
-            <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;margin-top:8px">{{ s.name }}</div>
-            <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--fg-muted)">{{ s.hex }}</div>
-          </div>
-        </sc-for>
-      </div>
-      <div style="padding:0 22px 22px;display:flex;flex-wrap:wrap;gap:20px;font-family:'Space Mono',monospace;font-size:12px;color:var(--fg-2)">
-        <span>primary <span style="color:var(--accent)">■</span> terracotta</span>
-        <span>success <span style="color:var(--success)">■</span> olive</span>
-        <span>warning <span style="color:var(--warning)">■</span> mustard</span>
-        <span>error <span style="color:var(--error)">■</span> burgundy</span>
-      </div>
-    </div>
-  </section>
   </main>
 
   <!-- FOOTER -->
