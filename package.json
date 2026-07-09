@@ -1,0 +1,20 @@
+{
+  "name": "exifregistry-website",
+  "version": "1.0.0",
+  "description": "Marketing website and brand kit for exifregistry — the photographer's metadata toolkit.",
+  "private": true,
+  "homepage": "https://exifregistry.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daviarndt/exifregistry-website.git"
+  },
+  "license": "MIT",
+  "author": "Davi Arndt",
+  "scripts": {
+    "dev": "npx -y serve public",
+    "check": "node scripts/check-links.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

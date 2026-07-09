@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 44" width="600" height="88">
+  <g transform="translate(0,6)" fill="none" stroke="#F3EADC" stroke-width="2.4" stroke-linecap="square">
+    <path d="M4 10V4H10"></path>
+    <path d="M22 4H28V10"></path>
+    <path d="M28 22V28H22"></path>
+    <path d="M10 28H4V22"></path>
+  </g>
+  <rect x="12" y="18" width="8" height="8" rx="1.5" fill="#D08869"></rect>
+  <text x="44" y="32" font-family="&#39;Space Mono&#39;, ui-monospace, monospace" font-weight="700" font-size="32" letter-spacing="-1">
+    <tspan fill="#F3EADC">exif</tspan><tspan fill="#D08869">-registry</tspan>
+  </text>
+</svg>
