@@ -1,21 +1,21 @@
-# exif-registry — Brand Kit
+# exifregistry — Brand Kit
 
-The complete visual identity and marketing site for **exif-registry**, the photographer's
+The complete visual identity and marketing site for **exifregistry**, the photographer's
 metadata CLI (command: `exifreg`). All values are derived from the product's own
 `exifreg frame --colors` palette.
 
 ## Contents
-- `website/exif-registry.html` — the one-page site, fully self-contained (inline CSS/JS,
+- `website/exifregistry.html` — the one-page site, fully self-contained (inline CSS/JS,
   fonts embedded). Works offline, light + dark theme, responsive.
 - `logo/` — logo assets as SVG (symbol, wordmark, horizontal lockup) in color, mono,
-  and white variants, plus `exif-registry-favicon.svg`.
-- `source/exif-registry.dc.html` — editable source component.
+  and white variants, plus `exifregistry-favicon.svg`.
+- `source/exifregistry.dc.html` — editable source component.
 
 ## Logo
 Viewfinder corner-brackets framing a terracotta matted-photo square — CLI-native,
 reads as a camera focus point / framed subject. Monochrome-safe
-(`exif-registry-symbol-mono.svg` uses `currentColor`) and legible down to 16px
-(`exif-registry-favicon.svg`).
+(`exifregistry-symbol-mono.svg` uses `currentColor`) and legible down to 16px
+(`exifregistry-favicon.svg`).
 
 ## Typography
 - **Space Mono** (700 / 400) — display, headings, code, EXIF captions. The brand voice.
@@ -40,8 +40,8 @@ dusty-pink `#D8A7A7` · sand `#E7D8C9` · espresso `#3B2C26` · ivory `#FFFFF0`
 
 ## Install
 ```
-npm install -g exif-registry
+npm install -g exifregistry
 ```
 
 ## License
-Site & assets for exif-registry (MIT). Powered by ExifTool & libvips.
+Site & assets for exifregistry (MIT). Powered by ExifTool & libvips.

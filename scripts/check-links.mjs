@@ -27,6 +27,8 @@ const mustNotContain = [
   ["npm install -g exif-kit", "legacy package install command"],
   ["github.com/daviarndt/exif-registry", "hyphenated GitHub URL"],
   ["<title>Bundled Page</title>", "placeholder title"],
+  [">-registry<", "hyphenated wordmark (name is exifregistry, no hyphen)"],
+  ["exif-registry", "hyphenated product name"],
 ];
 for (const [needle, label] of mustNotContain) {
   if (html.includes(needle)) problems.push(`found ${label} (${needle})`);

@@ -7,6 +7,6 @@
   </g>
   <rect x="12" y="18" width="8" height="8" rx="1.5" fill="#D08869"></rect>
   <text x="44" y="32" font-family="&#39;Space Mono&#39;, ui-monospace, monospace" font-weight="700" font-size="32" letter-spacing="-1">
-    <tspan fill="#F3EADC">exif</tspan><tspan fill="#D08869">-registry</tspan>
+    <tspan fill="#F3EADC">exif</tspan><tspan fill="#D08869">registry</tspan>
   </text>
 </svg>
