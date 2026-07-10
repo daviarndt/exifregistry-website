@@ -40,4 +40,25 @@ if (problems.length > 0) {
   for (const p of problems) console.error(`  ✗ ${p}`);
   process.exit(1);
 }
+// --- backup page
+const backup = readFileSync("public/backup/index.html", "utf8");
+const backupMust = [
+  ['rel="canonical" href="https://exifregistry.com/backup/"', "backup page canonical"],
+  ["npm install -g exifregistry", "backup page install command"],
+  ['href="/"', "backup page link home"],
+  ["buymeacoffee.com/daviarndtx", "backup page BMC link"],
+];
+for (const [needle, label] of backupMust) {
+  if (!backup.includes(needle)) problems.push(`missing ${label} (${needle})`);
+}
+for (const [needle, label] of [["exif-registry", "hyphenated name (backup page)"], ["\u2014", "em-dash in backup page prose"]]) {
+  if (backup.includes(needle)) problems.push(`found ${label}`);
+}
+if (!html.includes('href="/backup/"')) problems.push("home page does not link to /backup/");
+
+if (problems.length > 0) {
+  console.error("Site check FAILED:");
+  for (const p of problems) console.error(`  \u2717 ${p}`);
+  process.exit(1);
+}
 console.log("Site check passed.");

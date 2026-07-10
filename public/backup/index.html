@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verified photo backups · exifregistry</title>
+<meta name="description" content="Append-only, checksum-verified backups for photo libraries. Deletions never propagate, changed files are versioned, and one command detects silent disk corruption years later. Free, open-source, 100% local.">
+<link rel="canonical" href="https://exifregistry.com/backup/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://exifregistry.com/backup/">
+<meta property="og:title" content="Backups that can prove they are good · exifregistry">
+<meta property="og:description" content="Verified, append-only backups built for photographers. Checksummed copies, versioned changes, bit-rot detection, careful restore.">
+<meta property="og:image" content="https://exifregistry.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Backups that can prove they are good · exifregistry">
+<meta name="twitter:description" content="Verified, append-only photo backups with bit-rot detection. Free, open-source, 100% local.">
+<meta name="twitter:image" content="https://exifregistry.com/og.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF4EC">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2A2320">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0}
+  :root{
+    --bg:#FAF4EC; --bg-2:#F6F1E7; --surface:#FFFFFF; --surface-2:#F6F1E7;
+    --border:#E7DDCD; --border-strong:#D7CCB9;
+    --fg:#2E2E2E; --fg-2:#5A5149; --fg-muted:#8A8073;
+    --accent:#C4704F; --accent-strong:#A85638; --link:#A85638;
+    --success:#6B7248; --error:#5E2B35;
+    --term-bg:#241C18; --term-fg:#EDE4D6; --term-dim:#A9998A;
+    --term-green:#9FB37A; --term-red:#D08484; --term-prompt:#DD9273; --term-border:#3A2E27;
+    --chrome:rgba(250,244,236,.72);
+    --shadow:0 1px 2px rgba(46,34,26,.06),0 12px 40px -12px rgba(46,34,26,.18);
+  }
+  :root[data-theme="dark"]{
+    --bg:#2A2320; --bg-2:#241E1B; --surface:#332B27; --surface-2:#2F2723;
+    --border:#43392F; --border-strong:#55483B;
+    --fg:#F3EADC; --fg-2:#CFC4B4; --fg-muted:#9A8E7E;
+    --accent:#D08869; --accent-strong:#E0A184; --link:#E0A184;
+    --success:#AEB79A; --error:#C98494;
+    --chrome:rgba(42,35,32,.72);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 44px -14px rgba(0,0,0,.55);
+  }
+  body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .25s ease,color .25s ease;overflow-x:hidden}
+  a{color:var(--link);text-decoration:none}
+  a:hover{color:var(--accent-strong)}
+  ::selection{background:var(--accent);color:#fff}
+  .mono{font-family:'Space Mono',ui-monospace,monospace}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 24px}
+  .kicker{font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:12px}
+  h2{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(26px,3.4vw,36px);letter-spacing:-.03em;margin:0 0 14px}
+  .card{border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)}
+  .term{background:var(--term-bg);border:1px solid var(--term-border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .term-bar{background:#1c1512;height:34px;display:flex;align-items:center;gap:7px;padding:0 13px;border-bottom:1px solid var(--term-border)}
+  .term-bar span{width:11px;height:11px;border-radius:50%}
+  .term-body{padding:16px 18px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.65;color:var(--term-fg);overflow-x:auto}
+  .term-body div{white-space:pre}
+  .p{color:var(--term-prompt)} .g{color:var(--term-green)} .r{color:var(--term-red)} .d{color:var(--term-dim)}
+  .btn{display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 20px;border-radius:12px;background:var(--fg);color:var(--bg);font-weight:600;font-size:14.5px}
+  .btn:hover{color:var(--bg);opacity:.9}
+  .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  @media (max-width:880px){
+    .grid2{grid-template-columns:minmax(0,1fr)}
+    .hero-inner{grid-template-columns:minmax(0,1fr) !important;gap:36px !important}
+    .nav-link{display:none}
+  }
+  table.compare{width:100%;border-collapse:collapse;font-size:14.5px}
+  table.compare th,table.compare td{padding:13px 16px;border-top:1px solid var(--border);text-align:left;vertical-align:top}
+  table.compare th{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-muted);border-top:none}
+  table.compare td:first-child{font-weight:600;width:32%}
+  .no{color:var(--error)} .yes{color:var(--success);font-weight:600}
+  .step-n{font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:var(--chrome);border-bottom:1px solid var(--border)">
+  <nav class="wrap" style="max-width:1120px;padding:14px 24px;display:flex;align-items:center;gap:22px">
+    <a href="/" style="display:flex;align-items:center;gap:10px;color:var(--fg);flex-shrink:0;white-space:nowrap">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"><path d="M4 10V4H10"/><path d="M22 4H28V10"/><path d="M28 22V28H22"/><path d="M10 28H4V22"/></g><rect x="12" y="12" width="8" height="8" rx="1.5" fill="var(--accent)"/></svg>
+      <span class="mono" style="font-weight:700;font-size:17px;letter-spacing:-.02em">exifregistry</span>
+      <span class="mono nav-link" style="font-size:12px;color:var(--fg-muted);border:1px solid var(--border-strong);border-radius:999px;padding:3px 10px">/backup</span>
+    </a>
+    <div style="flex:1"></div>
+    <a href="/" class="nav-link" style="font-size:14px;color:var(--fg-2)">Home</a>
+    <a href="https://github.com/daviarndt/exifregistry" class="nav-link" style="font-size:14px;color:var(--fg-2)">GitHub</a>
+    <a href="https://buymeacoffee.com/daviarndtx" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--fg);border:1px solid var(--border-strong);background:var(--surface);border-radius:999px;padding:7px 13px;white-space:nowrap">☕<span class="nav-link"> Buy me a coffee</span></a>
+    <button id="themeToggle" aria-label="Toggle color theme" style="width:36px;height:36px;border-radius:9px;border:1px solid var(--border-strong);background:var(--surface);color:var(--fg);cursor:pointer;font-size:15px">☾</button>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="wrap hero-inner" style="max-width:1120px;padding-top:72px;padding-bottom:24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:52px;align-items:center">
+    <div>
+      <div class="mono" style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--fg-muted);border:1px solid var(--border-strong);border-radius:999px;padding:5px 12px;margin-bottom:22px">
+        <span style="color:var(--accent)">$</span> exifreg backup
+      </div>
+      <h1 class="mono" style="font-weight:700;font-size:clamp(32px,4.6vw,50px);line-height:1.06;letter-spacing:-.035em;margin:0 0 18px">Backups that can <span style="color:var(--accent)">prove</span> they are good.</h1>
+      <p style="font-size:17px;color:var(--fg-2);margin:0 0 28px;max-width:52ch">Most photographers discover their backup was broken on the day they need it. exifregistry takes the opposite path: every copy is checksummed the moment it is made, every change is versioned, and one command re-checks every byte, months or years later.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <a class="btn" href="https://github.com/daviarndt/exifregistry">Get exifregistry</a>
+        <span class="mono" style="font-size:13px;color:var(--fg-muted)">npm install -g exifregistry</span>
+      </div>
+    </div>
+    <div class="term">
+      <div class="term-bar"><span style="background:#E06C5B"></span><span style="background:#E6B24A"></span><span style="background:#7FB463"></span><span style="flex:1;text-align:center;font-family:'Space Mono',monospace;font-size:12px;color:var(--term-dim);margin-right:44px">exifreg</span></div>
+      <div class="term-body">
+<div><span class="p">$</span> exifreg backup ~/Photos --to /Volumes/Backup</div>
+<div>218 new, 3 changed, 12,431 unchanged (4.1 GB to copy).</div>
+<div><span class="d">Dry run. Nothing was changed. Add --apply to execute.</span></div>
+<div style="margin-top:8px"><span class="p">$</span> exifreg backup ~/Photos --to /Volumes/Backup --apply</div>
+<div><span class="g">✓</span> 221 files copied and verified (4.1 GB),</div>
+<div>  3 previous versions archived.</div>
+<div style="margin-top:8px"><span class="p">$</span> exifreg backup --verify --to /Volumes/Backup</div>
+<div>12,652/12,652 files verified OK.</div>
+<div><span class="g">✓</span> Backup is healthy: every file matches its checksum.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYNC IS NOT BACKUP -->
+  <section class="wrap" style="padding-top:64px">
+    <div class="kicker">// sync is not backup</div>
+    <h2>A mirror repeats your mistakes.</h2>
+    <p style="font-size:16px;color:var(--fg-2);max-width:64ch;margin:0 0 26px">Copy tools and sync folders make the destination look like the source. That is exactly the problem: delete a photo by accident and the mirror deletes it too. A silently corrupted file gets mirrored just as faithfully. A backup has one job that a mirror cannot do: remember.</p>
+    <div class="card" style="padding:10px 4px;overflow-x:auto">
+      <table class="compare">
+        <tr><th>Scenario</th><th>A mirror / sync</th><th>exifreg backup</th></tr>
+        <tr><td>You delete a photo by accident</td><td class="no">Deleted from the backup on the next run</td><td class="yes">Kept. Deletions never propagate</td></tr>
+        <tr><td>A file corrupts silently on disk</td><td class="no">The corruption is copied faithfully</td><td class="yes">--verify names the exact file</td></tr>
+        <tr><td>You edit a photo</td><td class="no">The previous version is gone</td><td class="yes">Old copy archived under _versions/</td></tr>
+        <tr><td>"Is my backup still good?"</td><td class="no">You hope so</td><td class="yes">12,652/12,652 files verified OK</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="wrap" style="padding-top:72px">
+    <div class="kicker">// how it works</div>
+    <h2>Four steps, zero trust.</h2>
+    <div class="grid2" style="margin-top:26px">
+      <div class="card">
+        <div class="step-n">01</div>
+        <h3 style="font-size:18px;margin:6px 0 8px">Scan and plan</h3>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0">Unchanged files are skipped instantly by size and date, so incremental runs on a huge library take seconds. Like every file operation in exifregistry, you see the full plan before anything is copied. A <span class="mono" style="font-size:13px">--paranoid</span> flag re-hashes everything when you want the slow, certain answer.</p>
+      </div>
+      <div class="card">
+        <div class="step-n">02</div>
+        <h3 style="font-size:18px;margin:6px 0 8px">Copy atomically, verify immediately</h3>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0">Each file is written to a temporary name, hashed on both sides, compared, and only then renamed into place. A power cut mid-copy cannot leave a half-written file with a valid name. If the hashes disagree, the copy is discarded and the run stops: that disagreement usually means a dying disk, and you want to know now.</p>
+      </div>
+      <div class="card">
+        <div class="step-n">03</div>
+        <h3 style="font-size:18px;margin:6px 0 8px">Record everything in a manifest</h3>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0">A manifest at the backup root stores each file's source path, size, SHA-256 checksum, capture date and camera. It turns a pile of copied files into an archive that knows what it holds, and it is what makes verification and semantic restore possible.</p>
+      </div>
+      <div class="card">
+        <div class="step-n">04</div>
+        <h3 style="font-size:18px;margin:6px 0 8px">Verify anytime</h3>
+        <p style="font-size:14.5px;color:var(--fg-2);margin:0">One command re-reads every byte of the backup and compares it against the manifest. Run it after every big import, or once a month. If a single bit has flipped anywhere in the archive, you get the file's name instead of a bad surprise years later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIT ROT -->
+  <section class="wrap" style="padding-top:72px">
+    <div class="grid2" style="align-items:center">
+      <div>
+        <div class="kicker">// the silent enemy</div>
+        <h2>Bit rot is real.</h2>
+        <p style="font-size:15.5px;color:var(--fg-2);margin:0 0 14px">Storage degrades. Magnetic charge fades, flash cells leak, controllers write bad sectors. The files most at risk are exactly the ones a photo archive is made of: written once, then untouched for years. Nothing crashes, no error appears. The file simply is not the file anymore, and a JPEG with a few flipped bits can lose half the image.</p>
+        <p style="font-size:15.5px;color:var(--fg-2);margin:0">Because the manifest remembers the checksum of every file at the moment it was known to be good, <span class="mono" style="font-size:14px">--verify</span> can prove the archive is still intact, and point at exactly what is not.</p>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span style="background:#E06C5B"></span><span style="background:#E6B24A"></span><span style="background:#7FB463"></span></div>
+        <div class="term-body">
+<div><span class="p">$</span> exifreg backup --verify --to /Volumes/Backup</div>
+<div>12,650/12,652 files verified OK.</div>
+<div><span class="r">CORRUPTED (bytes changed since backup):</span></div>
+<div><span class="r">  2019/iceland/DSC_0417.NEF</span></div>
+<div><span class="r">MISSING from backup: 2019/iceland/DSC_0418.NEF</span></div>
+<div>2 problem(s) found. The affected files should be</div>
+<div>re-copied from a healthy source.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESTORE -->
+  <section class="wrap" style="padding-top:72px">
+    <div class="grid2" style="align-items:center">
+      <div class="term" style="order:0">
+        <div class="term-bar"><span style="background:#E06C5B"></span><span style="background:#E6B24A"></span><span style="background:#7FB463"></span></div>
+        <div class="term-body">
+<div><span class="p">$</span> exifreg restore /Volumes/Backup --taken 2026-07</div>
+<div>214 to restore, 3,201 already in place, 1 conflict(s).</div>
+<div>  conflict (exists with different content, kept):</div>
+<div>  ~/Photos/2026/wedding/IMG_4021.CR3</div>
+<div><span class="d">Dry run. Nothing was changed. Add --apply to execute.</span></div>
+<div style="margin-top:8px"><span class="p">$</span> exifreg restore /Volumes/Backup --taken 2026-07 --apply</div>
+<div><span class="g">✓</span> 214 files restored and checksum-verified.</div>
+        </div>
+      </div>
+      <div>
+        <div class="kicker">// getting it back</div>
+        <h2>Restore is just as careful.</h2>
+        <ul style="font-size:15.5px;color:var(--fg-2);margin:0;padding-left:20px;display:grid;gap:10px">
+          <li><strong style="color:var(--fg)">Semantic restore.</strong> The manifest knows capture dates, so you can restore one day, one month or one year of photos without digging through folders.</li>
+          <li><strong style="color:var(--fg)">Never overwrites.</strong> A file that exists with different content is a conflict. It is reported and left alone, always.</li>
+          <li><strong style="color:var(--fg)">Refuses corruption.</strong> Every restored file is checked against its manifest checksum first. A rotten backup copy is refused, not propagated back into your library.</li>
+          <li><strong style="color:var(--fg)">Anywhere you want.</strong> Restore to the original locations, or into a separate folder with <span class="mono" style="font-size:13.5px">--to</span>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMANDS -->
+  <section class="wrap" style="padding-top:72px">
+    <div class="kicker">// reference</div>
+    <h2>The whole feature, six lines.</h2>
+    <div class="term" style="margin-top:22px">
+      <div class="term-bar"><span style="background:#E06C5B"></span><span style="background:#E6B24A"></span><span style="background:#7FB463"></span></div>
+      <div class="term-body" style="font-size:13px">
+<div><span class="p">$</span> exifreg backup ~/Photos --to /Volumes/Backup <span class="d"># preview the plan</span></div>
+<div><span class="p">$</span> exifreg backup ~/Photos --to /Volumes/Backup --apply <span class="d"># copy, verified</span></div>
+<div><span class="p">$</span> exifreg backup ~/Photos --to /Volumes/BK --by <span class="g">"{year}/{date}"</span> --apply <span class="d"># organized layout</span></div>
+<div><span class="p">$</span> exifreg backup --verify --to /Volumes/Backup <span class="d"># re-check every byte</span></div>
+<div><span class="p">$</span> exifreg backup --status --to /Volumes/Backup <span class="d"># files, size, capture span</span></div>
+<div><span class="p">$</span> exifreg restore /Volumes/Backup --taken 2026-07 --apply <span class="d"># bring photos back</span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:22px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap">
+      <span class="mono" style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">3-2-1 rule</span>
+      <p style="font-size:14.5px;color:var(--fg-2);margin:0;flex:1;min-width:260px">Keep 3 copies of your work, on 2 different media, 1 of them offsite. exifregistry covers the local legs: your working library plus one or more verified drives. Pair it with any offsite copy of your choice, and run <span class="mono" style="font-size:13px">--verify</span> on a schedule.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap" style="padding:72px 24px 30px;text-align:center">
+    <h2 style="font-size:clamp(24px,3vw,32px)">Your life's work deserves a receipt.</h2>
+    <p style="font-size:15.5px;color:var(--fg-2);margin:0 0 24px">Free, open-source, and it runs 100% on your machine.</p>
+    <div style="display:inline-flex;align-items:center;gap:14px;background:var(--term-bg);border:1px solid var(--term-border);border-radius:12px;padding:0 20px;height:52px;font-family:'Space Mono',monospace;font-size:14.5px;box-shadow:var(--shadow);max-width:100%;overflow-x:auto">
+      <span style="color:var(--term-prompt)">$</span>
+      <span style="color:var(--term-fg);white-space:nowrap">npm install -g exifregistry</span>
+    </div>
+    <div style="margin-top:18px;font-size:14px"><a href="/">← Back to everything else exifregistry does</a></div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--border);margin-top:40px">
+  <div class="wrap" style="max-width:1120px;padding:36px 24px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:11px">
+      <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"><path d="M4 10V4H10"/><path d="M22 4H28V10"/><path d="M28 22V28H22"/><path d="M10 28H4V22"/></g><rect x="12" y="12" width="8" height="8" rx="1.5" fill="var(--accent)"/></svg>
+      <span class="mono" style="font-weight:700;font-size:15px">exif<span style="color:var(--accent)">registry</span></span>
+    </div>
+    <div style="display:flex;gap:22px;font-size:13.5px;color:var(--fg-2);flex-wrap:wrap">
+      <a href="https://github.com/daviarndt/exifregistry">GitHub</a>
+      <a href="https://www.npmjs.com/package/exifregistry">npm</a>
+      <a href="https://buymeacoffee.com/daviarndtx">☕ Buy me a coffee</a>
+      <span>MIT License</span>
+    </div>
+  </div>
+  <div class="wrap" style="max-width:1120px;padding:0 24px 36px;font-family:'Space Mono',monospace;font-size:12.5px;color:var(--fg-muted)">// Made by a photographer, for photographers.</div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var stored = null;
+  try { stored = localStorage.getItem("theme"); } catch (e) {}
+  var theme = stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  apply(theme);
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    theme = theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", theme); } catch (e) {}
+    apply(theme);
+  });
+  function apply(t) {
+    root.setAttribute("data-theme", t);
+    document.getElementById("themeToggle").textContent = t === "dark" ? "☀" : "☾";
+  }
+})();
+</script>
+</body>
+</html>
