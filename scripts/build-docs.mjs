@@ -382,12 +382,12 @@ function commandHtml(cmd) {
   const options =
     cmd.options.length === 0
       ? ""
-      : `<table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr>${cmd.options
+      : `<div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr>${cmd.options
           .map(
             ([flag, desc, def]) =>
               `<tr><td class="mono">${esc(flag)}</td><td>${esc(desc)}</td><td class="mono soft">${esc(def ?? "")}</td></tr>`,
           )
-          .join("")}</table>`;
+          .join("")}</table></div>`;
   const examples = cmd.examples
     .map(
       ([line, comment]) =>
@@ -502,6 +502,7 @@ const html = `<!DOCTYPE html>
   table.opts td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:top}
   table.opts td.mono{font-size:12.5px;white-space:nowrap}
   table.opts td.soft{color:var(--fg-muted)}
+  .tscroll{max-width:100%;overflow-x:auto}
   .term{background:var(--term-bg);border:1px solid var(--term-border);border-radius:10px;overflow:hidden}
   .term-body{padding:13px 16px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.7;color:var(--term-fg);overflow-x:auto}
   .term-body div{white-space:pre}
@@ -514,6 +515,11 @@ const html = `<!DOCTYPE html>
     aside{position:static;display:flex;flex-wrap:wrap;gap:4px 14px;border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface)}
     .side-group{margin:0}
     .nav-link{display:none}
+  }
+  @media (max-width:560px){
+    .cmd,.conv{padding:20px 18px}
+    table.opts td.mono{white-space:normal;word-break:break-word}
+    .usage{white-space:normal;word-break:break-word}
   }
 </style>
 </head>
@@ -559,9 +565,9 @@ const html = `<!DOCTYPE html>
 
     <div class="conv" id="placeholders">
       <h3>Pattern placeholders (organize, rename, ingest, backup --by)</h3>
-      <table class="opts"><tr><th>Placeholder</th><th>Meaning</th></tr>
+      <div class="tscroll"><table class="opts"><tr><th>Placeholder</th><th>Meaning</th></tr>
       ${PLACEHOLDERS.map(([k, v]) => `<tr><td class="mono">${esc(k)}</td><td>${esc(v)}</td></tr>`).join("")}
-      </table>
+      </table></div>
     </div>
 
     ${sections}

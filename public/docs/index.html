@@ -65,6 +65,7 @@
   table.opts td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:top}
   table.opts td.mono{font-size:12.5px;white-space:nowrap}
   table.opts td.soft{color:var(--fg-muted)}
+  .tscroll{max-width:100%;overflow-x:auto}
   .term{background:var(--term-bg);border:1px solid var(--term-border);border-radius:10px;overflow:hidden}
   .term-body{padding:13px 16px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.7;color:var(--term-fg);overflow-x:auto}
   .term-body div{white-space:pre}
@@ -77,6 +78,11 @@
     aside{position:static;display:flex;flex-wrap:wrap;gap:4px 14px;border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface)}
     .side-group{margin:0}
     .nav-link{display:none}
+  }
+  @media (max-width:560px){
+    .cmd,.conv{padding:20px 18px}
+    table.opts td.mono{white-space:normal;word-break:break-word}
+    .usage{white-space:normal;word-break:break-word}
   }
 </style>
 </head>
@@ -122,9 +128,9 @@
 
     <div class="conv" id="placeholders">
       <h3>Pattern placeholders (organize, rename, ingest, backup --by)</h3>
-      <table class="opts"><tr><th>Placeholder</th><th>Meaning</th></tr>
+      <div class="tscroll"><table class="opts"><tr><th>Placeholder</th><th>Meaning</th></tr>
       <tr><td class="mono">{year} {month} {day}</td><td>capture date parts (from DateTimeOriginal, with sensible fallbacks)</td></tr><tr><td class="mono">{date}</td><td>2026-07-05</td></tr><tr><td class="mono">{time} {hour} {minute} {second}</td><td>capture time parts</td></tr><tr><td class="mono">{camera}</td><td>camera model, e.g. Canon EOS R6</td></tr><tr><td class="mono">{lens}</td><td>lens model</td></tr><tr><td class="mono">{type}</td><td>Photos, RAW or Videos</td></tr><tr><td class="mono">{name} {ext}</td><td>original file name / extension</td></tr><tr><td class="mono">{city} {region} {country}</td><td>from GPS, resolved offline</td></tr><tr><td class="mono">{counter} {counter:4}</td><td>sequence number in shooting order, optionally padded</td></tr>
-      </table>
+      </table></div>
     </div>
 
     
@@ -135,7 +141,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> show</h3>
       <div class="usage mono">exifreg show &lt;files...&gt; [options]</div>
       <p>Prints a curated metadata report: camera, lens, shutter count, serial number, full exposure block, dates, GPS. Use it any time you need to know what a file really says about itself: checking gear info before selling a camera, confirming a fix worked, or reading the shutter count of a body you are about to buy.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-v, --verbose</td><td>also list every remaining tag after the key fields</td><td class="mono soft"></td></tr><tr><td class="mono">-a, --all</td><td>flat alphabetical dump of every tag (raw values)</td><td class="mono soft"></td></tr><tr><td class="mono">--json</td><td>machine-readable output for scripts</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">-e, --export [file.md]</td><td>also save the report as Markdown</td><td class="mono soft">&lt;name&gt;.metadata.md</td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-v, --verbose</td><td>also list every remaining tag after the key fields</td><td class="mono soft"></td></tr><tr><td class="mono">-a, --all</td><td>flat alphabetical dump of every tag (raw values)</td><td class="mono soft"></td></tr><tr><td class="mono">--json</td><td>machine-readable output for scripts</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">-e, --export [file.md]</td><td>also save the report as Markdown</td><td class="mono soft">&lt;name&gt;.metadata.md</td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg show IMG_4021.CR3  <span class="d"># key fields for one file</span></div>
 <div><span class="p">$</span> exifreg show trip/ -r -v  <span class="d"># whole folder, every tag</span></div>
@@ -146,7 +152,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> diff</h3>
       <div class="usage mono">exifreg diff &lt;fileA&gt; &lt;fileB&gt; [options]</div>
       <p>Compares the metadata of two files side by side and shows only what differs. Typical case: an exported JPEG next to its RAW, to see exactly what the editor changed, kept or stripped. Filesystem identity tags (name, folder, access dates) are excluded so the table stays meaningful.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-a, --all</td><td>also list the tags whose values are identical</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-a, --all</td><td>also list the tags whose values are identical</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg diff original.CR3 exported.jpg  <span class="d"># what did the export change?</span></div></div></div>
     </article>
@@ -155,7 +161,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> stats</h3>
       <div class="usage mono">exifreg stats &lt;paths...&gt; [options]</div>
       <p>Aggregates a library's metadata into terminal bar charts: which cameras and lenses you actually use, favorite focal lengths and apertures, ISO habits, shots per month and per hour of day. Great before buying or selling gear, or just to understand your own shooting.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--json</td><td>machine-readable output</td><td class="mono soft"></td></tr><tr><td class="mono">-e, --export [file.md]</td><td>export the report to Markdown</td><td class="mono soft">library-stats.md</td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--json</td><td>machine-readable output</td><td class="mono soft"></td></tr><tr><td class="mono">-e, --export [file.md]</td><td>export the report to Markdown</td><td class="mono soft">library-stats.md</td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg stats ~/Photos -r  <span class="d"># the whole library at a glance</span></div>
 <div><span class="p">$</span> exifreg stats 2026/ -e year-review.md  <span class="d"># a year in review, exported</span></div></div></div>
@@ -165,7 +171,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> find</h3>
       <div class="usage mono">exifreg find &lt;paths...&gt; -w "&lt;condition&gt;" [options]</div>
       <p>Queries files by metadata and prints matching paths, one per line, ready to pipe into any other command. Conditions look like ISO&gt;3200, Model=Canon EOS R6 or LensModel~35mm. Repeat -w to AND conditions. Numbers compare numerically; EXIF dates compare chronologically; ~ means contains.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-w, --where &lt;condition&gt;</td><td>required; repeat to combine with AND</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-w, --where &lt;condition&gt;</td><td>required; repeat to combine with AND</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr></table></div>
       <p class="notes">Operators: = != &gt; &gt;= &lt; &lt;= and ~ (contains). Keys and string values are case-insensitive. Exit code is 1 when nothing matches, so it behaves well in scripts.</p>
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg find . -w "ISO&gt;3200"  <span class="d"># the noisy ones</span></div>
 <div><span class="p">$</span> exifreg find . -w "Model~canon" -w "DateTimeOriginal&gt;=2026:07"  <span class="d"># Canon shots since July</span></div>
@@ -180,7 +186,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> gps</h3>
       <div class="usage mono">exifreg gps &lt;files...&gt; [options]</div>
       <p>Sets or removes the GPS position. Paste coordinates straight from Google or Apple Maps with --coords, or pass --lat/--lon. Works on videos too (QuickTime GPSCoordinates). Use --remove before sharing photos of your home or a client's address.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --coords "&lt;lat, lon&gt;"</td><td>coordinates as copied from a maps app</td><td class="mono soft"></td></tr><tr><td class="mono">--lat &lt;deg&gt; / --lon &lt;deg&gt;</td><td>decimal degrees, as an alternative to --coords</td><td class="mono soft"></td></tr><tr><td class="mono">--alt &lt;meters&gt;</td><td>altitude</td><td class="mono soft"></td></tr><tr><td class="mono">--remove</td><td>delete all GPS data instead</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic _original backup</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --coords "&lt;lat, lon&gt;"</td><td>coordinates as copied from a maps app</td><td class="mono soft"></td></tr><tr><td class="mono">--lat &lt;deg&gt; / --lon &lt;deg&gt;</td><td>decimal degrees, as an alternative to --coords</td><td class="mono soft"></td></tr><tr><td class="mono">--alt &lt;meters&gt;</td><td>altitude</td><td class="mono soft"></td></tr><tr><td class="mono">--remove</td><td>delete all GPS data instead</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic _original backup</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg gps beach.jpg --coords "-23.5505, -46.6333"  <span class="d"># set a location</span></div>
 <div><span class="p">$</span> exifreg gps home-session/*.jpg --remove  <span class="d"># privacy before delivery</span></div></div></div>
@@ -190,7 +196,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> date</h3>
       <div class="usage mono">exifreg date &lt;files...&gt; [options]</div>
       <p>Fixes capture and modification dates. The killer option is --shift: when the camera clock was wrong or on the wrong timezone, shift every date by the same amount without touching anything else. Accepts friendly date forms like 2026-07-05 14:30 or 05/07/2026.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-t, --taken &lt;datetime&gt;</td><td>capture date (DateTimeOriginal + CreateDate)</td><td class="mono soft"></td></tr><tr><td class="mono">-m, --modified &lt;datetime&gt;</td><td>metadata modification date</td><td class="mono soft"></td></tr><tr><td class="mono">--all &lt;datetime&gt;</td><td>set taken, created and modified at once</td><td class="mono soft"></td></tr><tr><td class="mono">-s, --shift "&lt;amount&gt;"</td><td>shift all dates: "+2h", "-30m", "+1d 2h30m"</td><td class="mono soft"></td></tr><tr><td class="mono">--sync-file</td><td>also set the file's own modified date to the capture date</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-t, --taken &lt;datetime&gt;</td><td>capture date (DateTimeOriginal + CreateDate)</td><td class="mono soft"></td></tr><tr><td class="mono">-m, --modified &lt;datetime&gt;</td><td>metadata modification date</td><td class="mono soft"></td></tr><tr><td class="mono">--all &lt;datetime&gt;</td><td>set taken, created and modified at once</td><td class="mono soft"></td></tr><tr><td class="mono">-s, --shift "&lt;amount&gt;"</td><td>shift all dates: "+2h", "-30m", "+1d 2h30m"</td><td class="mono soft"></td></tr><tr><td class="mono">--sync-file</td><td>also set the file's own modified date to the capture date</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg date *.CR3 --shift "+2h"  <span class="d"># clock was two hours behind</span></div>
 <div><span class="p">$</span> exifreg date scan.jpg --taken "1994-12-25"  <span class="d"># date a scanned print</span></div></div></div>
@@ -200,7 +206,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> timezone</h3>
       <div class="usage mono">exifreg timezone &lt;files...&gt; [options]</div>
       <p>Writes the UTC offset tags (OffsetTimeOriginal and friends) that most cameras leave empty. With --from-gps each photo's offset is derived from its own coordinates, offline, with daylight saving handled at the capture date. Editors and catalogs then stop guessing what time your photos were really taken.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--offset "±HH:MM"</td><td>explicit offset, e.g. "-03:00"</td><td class="mono soft"></td></tr><tr><td class="mono">--from-gps</td><td>derive each photo's offset from its GPS position</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--offset "±HH:MM"</td><td>explicit offset, e.g. "-03:00"</td><td class="mono soft"></td></tr><tr><td class="mono">--from-gps</td><td>derive each photo's offset from its GPS position</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg timezone *.jpg --offset "-03:00"  <span class="d"># shot in Brazil</span></div>
 <div><span class="p">$</span> exifreg timezone trip/ --from-gps  <span class="d"># multi-country trip, each photo correct</span></div></div></div>
@@ -210,7 +216,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> copy</h3>
       <div class="usage mono">exifreg copy &lt;source&gt; &lt;targets...&gt; [--no-backup]</div>
       <p>Copies all metadata from one file onto others. The classic case: an export or a panorama stitch came out clean of EXIF, and you want the original's camera info, dates and GPS back on it.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg copy original.CR3 stitched-pano.jpg  <span class="d"># restore lost EXIF</span></div></div></div>
     </article>
@@ -219,7 +225,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> sign</h3>
       <div class="usage mono">exifreg sign &lt;files...&gt; [options]</div>
       <p>Stamps your authorship (Artist and Copyright) into files in bulk. Save a preset once with --save-preset and from then on a plain exifreg sign folder/ is enough. {year} in the copyright text becomes the current year automatically.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--artist &lt;name&gt;</td><td>artist / creator name</td><td class="mono soft"></td></tr><tr><td class="mono">--copyright "&lt;text&gt;"</td><td>copyright notice; "{year}" expands</td><td class="mono soft"></td></tr><tr><td class="mono">--save-preset</td><td>store artist/copyright as the default preset</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--artist &lt;name&gt;</td><td>artist / creator name</td><td class="mono soft"></td></tr><tr><td class="mono">--copyright "&lt;text&gt;"</td><td>copyright notice; "{year}" expands</td><td class="mono soft"></td></tr><tr><td class="mono">--save-preset</td><td>store artist/copyright as the default preset</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg sign *.jpg --artist "Davi Arndt" --copyright "© {year} Davi Arndt" --save-preset  <span class="d"># first time</span></div>
 <div><span class="p">$</span> exifreg sign wedding/  <span class="d"># every time after that</span></div></div></div>
@@ -229,7 +235,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> strip</h3>
       <div class="usage mono">exifreg strip &lt;files...&gt; [options]</div>
       <p>Removes ALL metadata: camera, dates, GPS, serial numbers, everything. For privacy-safe sharing when the picture should speak and the data should not. Asks for confirmation unless you pass -y.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-y, --yes</td><td>skip the confirmation prompt</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-y, --yes</td><td>skip the confirmation prompt</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg strip listing-photos/*.jpg -y  <span class="d"># publish clean files</span></div></div></div>
     </article>
@@ -252,7 +258,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> organize</h3>
       <div class="usage mono">exifreg organize &lt;paths...&gt; --to &lt;dir&gt; [options]</div>
       <p>Moves (or copies) photos into folders derived from their metadata: by date, by camera, even by city using offline GPS geocoding. RAW+JPEG pairs and sidecar files always travel together. Dry-run by default; nothing is ever overwritten; every executed batch can be undone.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>destination root</td><td class="mono soft">current folder</td></tr><tr><td class="mono">--by "&lt;pattern&gt;"</td><td>folder pattern, see placeholders below</td><td class="mono soft">{year}/{date}</td></tr><tr><td class="mono">--copy</td><td>copy instead of move</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo</td><td>revert the last executed batch under --to</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>destination root</td><td class="mono soft">current folder</td></tr><tr><td class="mono">--by "&lt;pattern&gt;"</td><td>folder pattern, see placeholders below</td><td class="mono soft">{year}/{date}</td></tr><tr><td class="mono">--copy</td><td>copy instead of move</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo</td><td>revert the last executed batch under --to</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg organize card/ --to ~/Photos --by "{year}/{date}" --apply  <span class="d"># the classic import layout</span></div>
 <div><span class="p">$</span> exifreg organize . --by "{camera}/{date}"  <span class="d"># two-shooter wedding, split by body</span></div>
@@ -263,7 +269,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> rename</h3>
       <div class="usage mono">exifreg rename &lt;files...&gt; -p "&lt;pattern&gt;" [options]</div>
       <p>Renames files in place from their metadata, keeping pairs and sidecars in matching names. {counter} numbers files in shooting order, which fixes the classic two-cameras-same-counter mess.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-p, --pattern "&lt;pattern&gt;"</td><td>filename pattern</td><td class="mono soft">{date}_{time}_{name}</td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo &lt;folder&gt;</td><td>revert the last rename in that folder</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-p, --pattern "&lt;pattern&gt;"</td><td>filename pattern</td><td class="mono soft">{date}_{time}_{name}</td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo &lt;folder&gt;</td><td>revert the last rename in that folder</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg rename . -p "wedding_{counter:3}" --apply  <span class="d"># wedding_001.CR3, _002...</span></div></div></div>
     </article>
@@ -272,7 +278,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> ingest</h3>
       <div class="usage mono">exifreg ingest &lt;card&gt; --to &lt;dir&gt; [options]</div>
       <p>Imports a memory card: copies into organized folders and, with --verify, checks every copy against a SHA-256 checksum before you ever consider formatting the card. Copies by default; the card keeps its files unless you pass --move.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>destination root (required)</td><td class="mono soft"></td></tr><tr><td class="mono">--by "&lt;pattern&gt;"</td><td>folder pattern under --to</td><td class="mono soft">{year}/{date}</td></tr><tr><td class="mono">--verify</td><td>checksum-verify every copy</td><td class="mono soft"></td></tr><tr><td class="mono">--move</td><td>move instead of copy</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo</td><td>revert the last ingest under --to</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>destination root (required)</td><td class="mono soft"></td></tr><tr><td class="mono">--by "&lt;pattern&gt;"</td><td>folder pattern under --to</td><td class="mono soft">{year}/{date}</td></tr><tr><td class="mono">--verify</td><td>checksum-verify every copy</td><td class="mono soft"></td></tr><tr><td class="mono">--move</td><td>move instead of copy</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo</td><td>revert the last ingest under --to</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg ingest /Volumes/EOS_R6 --to ~/Photos --verify --apply  <span class="d"># the safe import</span></div></div></div>
     </article>
@@ -281,7 +287,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> split</h3>
       <div class="usage mono">exifreg split &lt;dir&gt; [--apply] [--undo]</div>
       <p>Sorts a mixed folder into Photos/, RAW/ and Videos/ subfolders. For that downloads folder where everything landed together.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo</td><td>revert the last split in this folder</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo</td><td>revert the last split in this folder</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg split ~/Downloads/mixed --apply  <span class="d"># three tidy piles</span></div></div></div>
     </article>
@@ -290,7 +296,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> dupes</h3>
       <div class="usage mono">exifreg dupes &lt;paths...&gt; [options]</div>
       <p>Finds byte-identical duplicates (size first, then SHA-256, so false positives are impossible) and reports how much space they waste. Deletion is opt-in, keeps the first of each group, and asks for confirmation. This is the one operation without an undo, so it is triple-gated.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--delete</td><td>plan deletion of the duplicates</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>with --delete: actually delete (confirmed interactively)</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--delete</td><td>plan deletion of the duplicates</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>with --delete: actually delete (confirmed interactively)</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg dupes ~/Photos -r  <span class="d"># report only, always safe</span></div>
 <div><span class="p">$</span> exifreg dupes ~/Photos -r --delete --apply  <span class="d"># reclaim the space</span></div></div></div>
@@ -304,7 +310,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> backup</h3>
       <div class="usage mono">exifreg backup &lt;sources...&gt; --to &lt;dir&gt; [options]</div>
       <p>Verified, append-only backups with a SHA-256 manifest. Deletions never propagate, changed files are versioned under _versions/ instead of overwritten, every copy is atomic and checksum-verified, and --verify re-checks every byte to catch silent corruption. Read the full story on the backup page.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>backup root (required)</td><td class="mono soft"></td></tr><tr><td class="mono">--by "&lt;pattern&gt;"</td><td>organized layout instead of mirroring folders</td><td class="mono soft"></td></tr><tr><td class="mono">--paranoid</td><td>re-hash every file instead of trusting size and date</td><td class="mono soft"></td></tr><tr><td class="mono">--verify</td><td>re-hash the whole backup against its manifest</td><td class="mono soft"></td></tr><tr><td class="mono">--status</td><td>files, size, versions, capture span</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>backup root (required)</td><td class="mono soft"></td></tr><tr><td class="mono">--by "&lt;pattern&gt;"</td><td>organized layout instead of mirroring folders</td><td class="mono soft"></td></tr><tr><td class="mono">--paranoid</td><td>re-hash every file instead of trusting size and date</td><td class="mono soft"></td></tr><tr><td class="mono">--verify</td><td>re-hash the whole backup against its manifest</td><td class="mono soft"></td></tr><tr><td class="mono">--status</td><td>files, size, versions, capture span</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg backup ~/Photos --to /Volumes/Backup --apply  <span class="d"># the habit worth having</span></div>
 <div><span class="p">$</span> exifreg backup --verify --to /Volumes/Backup  <span class="d"># monthly integrity check</span></div></div></div>
@@ -314,7 +320,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> restore</h3>
       <div class="usage mono">exifreg restore &lt;backup-root&gt; [options]</div>
       <p>Restores from a backup: everything, or a slice by capture date thanks to the manifest. Files that already exist with identical content are skipped; files that differ are conflicts and are never overwritten; a backup copy that fails its own checksum is refused rather than restored.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>restore into this folder instead of the original locations</td><td class="mono soft"></td></tr><tr><td class="mono">--taken &lt;date&gt;</td><td>only files captured then: "2026", "2026-07", "2026-07-05"</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--to &lt;dir&gt;</td><td>restore into this folder instead of the original locations</td><td class="mono soft"></td></tr><tr><td class="mono">--taken &lt;date&gt;</td><td>only files captured then: "2026", "2026-07", "2026-07-05"</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg restore /Volumes/Backup --apply  <span class="d"># put missing originals back</span></div>
 <div><span class="p">$</span> exifreg restore /Volumes/Backup --taken 2026-07 --to ./recovered --apply  <span class="d"># one month, elsewhere</span></div></div></div>
@@ -328,7 +334,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> frame</h3>
       <div class="usage mono">exifreg frame &lt;files...&gt; [options]</div>
       <p>Re-renders photos inside an aesthetic colored frame with their exposure caption in Space Mono: the "shot on" portfolio look. RAW files work through their embedded previews. The output keeps the original photo's EXIF.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --color &lt;name|#hex&gt;</td><td>frame color; list all 21 with --colors</td><td class="mono soft">white</td></tr><tr><td class="mono">--ratio &lt;W:H|original&gt;</td><td>"1:1", "4:5", "9:16", "3:2"...</td><td class="mono soft">original</td></tr><tr><td class="mono">--caption &lt;pos&gt;</td><td>bottom, top or none</td><td class="mono soft">bottom</td></tr><tr><td class="mono">--camera</td><td>include the camera model in the caption</td><td class="mono soft"></td></tr><tr><td class="mono">--margin &lt;pct&gt;</td><td>margin around the photo</td><td class="mono soft">6</td></tr><tr><td class="mono">--size &lt;px|full&gt;</td><td>"full" keeps the photo at native resolution</td><td class="mono soft">3000</td></tr><tr><td class="mono">-q, --quality &lt;1-100&gt;</td><td>JPEG quality of the render</td><td class="mono soft">95</td></tr><tr><td class="mono">-o, --out &lt;dir&gt;</td><td>output folder</td><td class="mono soft">next to each photo</td></tr><tr><td class="mono">--colors</td><td>list the palette with names and hex codes</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --color &lt;name|#hex&gt;</td><td>frame color; list all 21 with --colors</td><td class="mono soft">white</td></tr><tr><td class="mono">--ratio &lt;W:H|original&gt;</td><td>"1:1", "4:5", "9:16", "3:2"...</td><td class="mono soft">original</td></tr><tr><td class="mono">--caption &lt;pos&gt;</td><td>bottom, top or none</td><td class="mono soft">bottom</td></tr><tr><td class="mono">--camera</td><td>include the camera model in the caption</td><td class="mono soft"></td></tr><tr><td class="mono">--margin &lt;pct&gt;</td><td>margin around the photo</td><td class="mono soft">6</td></tr><tr><td class="mono">--size &lt;px|full&gt;</td><td>"full" keeps the photo at native resolution</td><td class="mono soft">3000</td></tr><tr><td class="mono">-q, --quality &lt;1-100&gt;</td><td>JPEG quality of the render</td><td class="mono soft">95</td></tr><tr><td class="mono">-o, --out &lt;dir&gt;</td><td>output folder</td><td class="mono soft">next to each photo</td></tr><tr><td class="mono">--colors</td><td>list the palette with names and hex codes</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg frame photo.CR3 -c off-white --ratio 4:5  <span class="d"># Instagram-ready</span></div>
 <div><span class="p">$</span> exifreg frame photo.jpg -c sage --caption none --size full  <span class="d"># just the frame, print-grade</span></div></div></div>
@@ -338,7 +344,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> resize</h3>
       <div class="usage mono">exifreg resize &lt;files...&gt; [options]</div>
       <p>Resizes and converts into NEW files; originals are never touched and the EXIF is carried over. The standout option is --max-size: say "1mb" and a binary search finds the highest quality that fits, so you stop guessing quality numbers.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-s, --max-size &lt;size&gt;</td><td>target file size: "1mb", "500kb"</td><td class="mono soft"></td></tr><tr><td class="mono">--long &lt;px&gt;</td><td>resize the long edge</td><td class="mono soft"></td></tr><tr><td class="mono">--width / --height &lt;px&gt;</td><td>fit within a box</td><td class="mono soft"></td></tr><tr><td class="mono">--percent &lt;n&gt;</td><td>scale by percentage</td><td class="mono soft"></td></tr><tr><td class="mono">-f, --format &lt;fmt&gt;</td><td>jpeg, png, webp, avif, tiff</td><td class="mono soft">keep</td></tr><tr><td class="mono">-q, --quality &lt;1-100&gt;</td><td>explicit quality</td><td class="mono soft">85</td></tr><tr><td class="mono">-o, --out &lt;dir&gt;</td><td>output folder</td><td class="mono soft"></td></tr><tr><td class="mono">--suffix &lt;text&gt;</td><td>inserted before the extension</td><td class="mono soft">resized</td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-s, --max-size &lt;size&gt;</td><td>target file size: "1mb", "500kb"</td><td class="mono soft"></td></tr><tr><td class="mono">--long &lt;px&gt;</td><td>resize the long edge</td><td class="mono soft"></td></tr><tr><td class="mono">--width / --height &lt;px&gt;</td><td>fit within a box</td><td class="mono soft"></td></tr><tr><td class="mono">--percent &lt;n&gt;</td><td>scale by percentage</td><td class="mono soft"></td></tr><tr><td class="mono">-f, --format &lt;fmt&gt;</td><td>jpeg, png, webp, avif, tiff</td><td class="mono soft">keep</td></tr><tr><td class="mono">-q, --quality &lt;1-100&gt;</td><td>explicit quality</td><td class="mono soft">85</td></tr><tr><td class="mono">-o, --out &lt;dir&gt;</td><td>output folder</td><td class="mono soft"></td></tr><tr><td class="mono">--suffix &lt;text&gt;</td><td>inserted before the extension</td><td class="mono soft">resized</td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg resize photo.jpg --max-size 1mb  <span class="d"># client asked for under 1 MB</span></div>
 <div><span class="p">$</span> exifreg resize *.jpg --long 2048 -f webp -o web/  <span class="d"># web-ready batch</span></div></div></div>
@@ -348,7 +354,7 @@
       <h3 class="mono"><span class="accent">exifreg</span> contact</h3>
       <div class="usage mono">exifreg contact &lt;paths...&gt; [options]</div>
       <p>Renders a contact sheet: a thumbnail grid with filename and exposure labels, as a single JPEG. The classic deliverable for a client to pick selects from. RAW files contribute their embedded previews.</p>
-      <table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --columns &lt;n&gt;</td><td>thumbnails per row</td><td class="mono soft">4</td></tr><tr><td class="mono">--cell &lt;px&gt;</td><td>width of each cell</td><td class="mono soft">320</td></tr><tr><td class="mono">-o, --out &lt;file.jpg&gt;</td><td>output file</td><td class="mono soft">&lt;name&gt;-contact.jpg</td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr></table>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --columns &lt;n&gt;</td><td>thumbnails per row</td><td class="mono soft">4</td></tr><tr><td class="mono">--cell &lt;px&gt;</td><td>width of each cell</td><td class="mono soft">320</td></tr><tr><td class="mono">-o, --out &lt;file.jpg&gt;</td><td>output file</td><td class="mono soft">&lt;name&gt;-contact.jpg</td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg contact selects/ -c 5 --out client.jpg  <span class="d"># send one file, get picks back</span></div></div></div>
     </article>
