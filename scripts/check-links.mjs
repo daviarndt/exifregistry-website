@@ -16,6 +16,7 @@ const mustContain = [
   ["https://github.com/daviarndt/exifregistry", "GitHub repo link"],
   ["https://www.npmjs.com/package/exifregistry", "npm package link"],
   ["buymeacoffee.com/daviarndtx", "Buy Me a Coffee link"],
+  ["exifreg backup", "backup feature showcase"],
   ['href="/favicon.svg"', "favicon link"],
 ];
 for (const [needle, label] of mustContain) {
