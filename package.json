@@ -1,7 +1,7 @@
 {
   "name": "exifregistry-website",
   "version": "1.0.0",
-  "description": "Marketing website and brand kit for exifregistry — the photographer's metadata toolkit.",
+  "description": "Marketing website and brand kit for exifregistry \u2014 the photographer's metadata toolkit.",
   "private": true,
   "homepage": "https://exifregistry.com",
   "repository": {
@@ -12,7 +12,8 @@
   "author": "Davi Arndt",
   "scripts": {
     "dev": "npx -y serve public",
-    "check": "node scripts/check-links.mjs"
+    "check": "node scripts/check-links.mjs",
+    "docs": "node scripts/build-docs.mjs"
   },
   "engines": {
     "node": ">=20"

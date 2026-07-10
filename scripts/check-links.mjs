@@ -56,6 +56,19 @@ for (const [needle, label] of [["exif-registry", "hyphenated name (backup page)"
 }
 if (!html.includes('href="/backup/"')) problems.push("home page does not link to /backup/");
 
+// --- docs page
+const docs = readFileSync("public/docs/index.html", "utf8");
+const COMMANDS = ["show","gps","date","copy","strip","undo","organize","rename",
+  "ingest","split","dupes","stats","find","diff","timezone","sign","contact",
+  "backup","restore","frame","resize","doctor"];
+for (const cmd of COMMANDS) {
+  if (!docs.includes(`id="${cmd}"`)) problems.push(`docs page missing command: ${cmd}`);
+}
+if (!docs.includes('rel="canonical" href="https://exifregistry.com/docs/"')) problems.push("docs canonical missing");
+if (docs.includes("exif-registry")) problems.push("hyphenated name in docs page");
+if (docs.includes("\u2014")) problems.push("em-dash in docs page");
+if (!html.includes('href="/docs/"')) problems.push("home page does not link to /docs/");
+
 if (problems.length > 0) {
   console.error("Site check FAILED:");
   for (const p of problems) console.error(`  \u2717 ${p}`);
