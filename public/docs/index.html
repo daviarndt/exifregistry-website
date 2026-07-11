@@ -353,10 +353,12 @@
     <article class="cmd" id="contact">
       <h3 class="mono"><span class="accent">exifreg</span> contact</h3>
       <div class="usage mono">exifreg contact &lt;paths...&gt; [options]</div>
-      <p>Renders a contact sheet: a thumbnail grid with filename and exposure labels, as a single JPEG. The classic deliverable for a client to pick selects from. RAW files contribute their embedded previews.</p>
-      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --columns &lt;n&gt;</td><td>thumbnails per row</td><td class="mono soft">4</td></tr><tr><td class="mono">--cell &lt;px&gt;</td><td>width of each cell</td><td class="mono soft">320</td></tr><tr><td class="mono">-o, --out &lt;file.jpg&gt;</td><td>output file</td><td class="mono soft">&lt;name&gt;-contact.jpg</td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr></table></div>
+      <p>Renders a contact sheet: a thumbnail grid with filename (and optional EXIF) labels, as a single JPEG or a high-resolution PDF. The classic deliverable for a client to pick selects from. The file is written next to the photos, not the terminal's folder. RAW files contribute their embedded previews.</p>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --columns &lt;n&gt;</td><td>thumbnails per row</td><td class="mono soft">4</td></tr><tr><td class="mono">--cell &lt;px&gt;</td><td>width of each cell</td><td class="mono soft">320</td></tr><tr><td class="mono">-f, --format &lt;fmt&gt;</td><td>jpeg or pdf (inferred from --out)</td><td class="mono soft">jpeg</td></tr><tr><td class="mono">--color &lt;name|#hex&gt;</td><td>sheet background color</td><td class="mono soft">off-white</td></tr><tr><td class="mono">--no-exif</td><td>filename labels only, no exposure line</td><td class="mono soft"></td></tr><tr><td class="mono">-o, --out &lt;file&gt;</td><td>output file</td><td class="mono soft">&lt;folder&gt;-contact next to the photos</td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr></table></div>
       
-      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg contact selects/ -c 5 --out client.jpg  <span class="d"># send one file, get picks back</span></div></div></div>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg contact selects/ -c 5  <span class="d"># sheet saved into selects/</span></div>
+<div><span class="p">$</span> exifreg contact selects/ -f pdf --color charcoal  <span class="d"># dark PDF for print</span></div>
+<div><span class="p">$</span> exifreg contact selects/ --no-exif  <span class="d"># just the frame numbers</span></div></div></div>
     </article>
   </section>
 

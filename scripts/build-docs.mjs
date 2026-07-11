@@ -346,15 +346,20 @@ const GROUPS = [
         name: "contact",
         usage: "exifreg contact <paths...> [options]",
         summary:
-          "Renders a contact sheet: a thumbnail grid with filename and exposure labels, as a single JPEG. The classic deliverable for a client to pick selects from. RAW files contribute their embedded previews.",
+          "Renders a contact sheet: a thumbnail grid with filename (and optional EXIF) labels, as a single JPEG or a high-resolution PDF. The classic deliverable for a client to pick selects from. The file is written next to the photos, not the terminal's folder. RAW files contribute their embedded previews.",
         options: [
           ["-c, --columns <n>", "thumbnails per row", "4"],
           ["--cell <px>", "width of each cell", "320"],
-          ["-o, --out <file.jpg>", "output file", "<name>-contact.jpg"],
+          ["-f, --format <fmt>", "jpeg or pdf (inferred from --out)", "jpeg"],
+          ["--color <name|#hex>", "sheet background color", "off-white"],
+          ["--no-exif", "filename labels only, no exposure line"],
+          ["-o, --out <file>", "output file", "<folder>-contact next to the photos"],
           ["-r, --recursive", "recurse into subfolders"],
         ],
         examples: [
-          ["exifreg contact selects/ -c 5 --out client.jpg", "send one file, get picks back"],
+          ["exifreg contact selects/ -c 5", "sheet saved into selects/"],
+          ["exifreg contact selects/ -f pdf --color charcoal", "dark PDF for print"],
+          ["exifreg contact selects/ --no-exif", "just the frame numbers"],
         ],
       },
     ],
