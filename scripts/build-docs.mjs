@@ -25,7 +25,7 @@ const GROUPS = [
           ["-e, --export [file.md]", "also save the report as Markdown", "<name>.metadata.md"],
         ],
         examples: [
-          ["exifreg show IMG_4021.CR3", "key fields for one file"],
+          ["exifreg show DSC02481.ARW", "key fields for one file"],
           ["exifreg show trip/ -r -v", "whole folder, every tag"],
           ["exifreg show photo.jpg -e report.md", "archive the report as Markdown"],
         ],
@@ -37,7 +37,7 @@ const GROUPS = [
           "Compares the metadata of two files side by side and shows only what differs. Typical case: an exported JPEG next to its RAW, to see exactly what the editor changed, kept or stripped. Filesystem identity tags (name, folder, access dates) are excluded so the table stays meaningful.",
         options: [["-a, --all", "also list the tags whose values are identical"]],
         examples: [
-          ["exifreg diff original.CR3 exported.jpg", "what did the export change?"],
+          ["exifreg diff original.ARW exported.jpg", "what did the export change?"],
         ],
       },
       {
@@ -59,14 +59,14 @@ const GROUPS = [
         name: "find",
         usage: 'exifreg find <paths...> -w "<condition>" [options]',
         summary:
-          "Queries files by metadata and prints matching paths, one per line, ready to pipe into any other command. Conditions look like ISO>3200, Model=Canon EOS R6 or LensModel~35mm. Repeat -w to AND conditions. Numbers compare numerically; EXIF dates compare chronologically; ~ means contains.",
+          "Queries files by metadata and prints matching paths, one per line, ready to pipe into any other command. Conditions look like ISO>3200, Model=Sony A7 IV or LensModel~35mm. Repeat -w to AND conditions. Numbers compare numerically; EXIF dates compare chronologically; ~ means contains.",
         options: [
           ["-w, --where <condition>", "required; repeat to combine with AND"],
           ["-r, --recursive", "recurse into subfolders"],
         ],
         examples: [
           ['exifreg find . -w "ISO>3200"', "the noisy ones"],
-          ['exifreg find . -w "Model~canon" -w "DateTimeOriginal>=2026:07"', "Canon shots since July"],
+          ['exifreg find . -w "Model~sony" -w "DateTimeOriginal>=2026:07"', "Sony shots since July"],
           ['exifreg find . -w "GPSLatitude>0" | xargs exifreg gps --remove', "strip GPS wherever it exists"],
         ],
         notes: "Operators: = != > >= < <= and ~ (contains). Keys and string values are case-insensitive. Exit code is 1 when nothing matches, so it behaves well in scripts.",
@@ -108,7 +108,7 @@ const GROUPS = [
           ["--no-backup", "skip the automatic backup"],
         ],
         examples: [
-          ['exifreg date *.CR3 --shift "+2h"', "clock was two hours behind"],
+          ['exifreg date *.ARW --shift "+2h"', "clock was two hours behind"],
           ['exifreg date scan.jpg --taken "1994-12-25"', "date a scanned print"],
         ],
       },
@@ -133,7 +133,7 @@ const GROUPS = [
         summary:
           "Copies all metadata from one file onto others. The classic case: an export or a panorama stitch came out clean of EXIF, and you want the original's camera info, dates and GPS back on it.",
         options: [["--no-backup", "skip the automatic backup"]],
-        examples: [["exifreg copy original.CR3 stitched-pano.jpg", "restore lost EXIF"]],
+        examples: [["exifreg copy original.ARW stitched-pano.jpg", "restore lost EXIF"]],
       },
       {
         name: "sign",
@@ -210,7 +210,7 @@ const GROUPS = [
           ["--undo <folder>", "revert the last rename in that folder"],
         ],
         examples: [
-          ['exifreg rename . -p "wedding_{counter:3}" --apply', "wedding_001.CR3, _002..."],
+          ['exifreg rename . -p "wedding_{counter:3}" --apply', "wedding_001.ARW, _002..."],
         ],
       },
       {
@@ -318,7 +318,7 @@ const GROUPS = [
           ["--colors", "list the palette with names and hex codes"],
         ],
         examples: [
-          ["exifreg frame photo.CR3 -c off-white --ratio 4:5", "Instagram-ready"],
+          ["exifreg frame photo.ARW -c off-white --ratio 4:5", "Instagram-ready"],
           ["exifreg frame photo.jpg -c sage --caption none --size full", "just the frame, print-grade"],
         ],
       },
@@ -364,10 +364,52 @@ const GROUPS = [
     title: "Utility",
     commands: [
       {
+        name: "config",
+        usage: "exifreg config [key] [value] [options]",
+        summary:
+          "Saves defaults so you stop repeating flags: your name and copyright for sign, a default backup drive, a favorite frame color. Stored in ~/.config/exifregistry/config.json. Run it with no arguments to see current settings.",
+        options: [
+          ["--keys", "list every settable key"],
+          ["--path", "print the config file location"],
+        ],
+        examples: [
+          ['exifreg config sign.artist "Davi Arndt"', "set your name once"],
+          ['exifreg config backup.to "/Volumes/Backup"', "default backup drive"],
+          ["exifreg config", "show everything you have set"],
+        ],
+        notes: "Keys: sign.artist, sign.copyright, backup.to, frame.color. An empty value unsets a key.",
+      },
+      {
+        name: "history",
+        usage: "exifreg history [options]",
+        summary:
+          "Shows the operations that changed your files, newest first: what ran, when, and how many files it touched. A quiet paper trail for a tool that edits irreplaceable work.",
+        options: [
+          ["-n, --limit <n>", "how many entries to show", "20"],
+          ["--clear", "erase the log"],
+          ["--path", "print the log file location"],
+        ],
+        examples: [
+          ["exifreg history", "the last 20 operations"],
+          ["exifreg history -n 100", "look further back"],
+        ],
+      },
+      {
+        name: "completion",
+        usage: "exifreg completion <shell>",
+        summary:
+          "Prints a shell completion script so pressing Tab suggests commands. Supports bash, zsh and fish.",
+        options: [],
+        examples: [
+          ['exifreg completion zsh > "${fpath[1]}/_exifreg"', "install for zsh"],
+          ["exifreg completion fish > ~/.config/fish/completions/exifreg.fish", "install for fish"],
+        ],
+      },
+      {
         name: "doctor",
         usage: "exifreg doctor",
         summary:
-          "Checks that the installation is healthy: version and the bundled ExifTool responding. Run it once after installing, or when something feels off.",
+          "Checks that the installation is healthy: version, the bundled ExifTool responding, and how many config settings you have. Run it once after installing, or when something feels off.",
         options: [],
         examples: [["exifreg doctor", "all green in one second"]],
       },
@@ -427,7 +469,7 @@ const PLACEHOLDERS = [
   ["{year} {month} {day}", "capture date parts (from DateTimeOriginal, with sensible fallbacks)"],
   ["{date}", "2026-07-05"],
   ["{time} {hour} {minute} {second}", "capture time parts"],
-  ["{camera}", "camera model, e.g. Canon EOS R6"],
+  ["{camera}", "camera model, e.g. Sony A7 IV"],
   ["{lens}", "lens model"],
   ["{type}", "Photos, RAW or Videos"],
   ["{name} {ext}", "original file name / extension"],

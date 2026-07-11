@@ -60,7 +60,7 @@ if (!html.includes('href="/backup/"')) problems.push("home page does not link to
 const docs = readFileSync("public/docs/index.html", "utf8");
 const COMMANDS = ["show","gps","date","copy","strip","undo","organize","rename",
   "ingest","split","dupes","stats","find","diff","timezone","sign","contact",
-  "backup","restore","frame","resize","doctor"];
+  "backup","restore","frame","resize","config","history","completion","doctor"];
 for (const cmd of COMMANDS) {
   if (!docs.includes(`id="${cmd}"`)) problems.push(`docs page missing command: ${cmd}`);
 }

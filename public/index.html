@@ -115,6 +115,7 @@
           GitHub
         </a>
       </div>
+      <div style="font-family:'Space Mono',monospace;font-size:12.5px;color:var(--fg-muted);margin-bottom:10px">or <span style="color:var(--fg-2)">brew install daviarndt/tap/exifregistry</span></div>
       <div style="display:flex;gap:16px;font-family:'Space Mono',monospace;font-size:12.5px;color:var(--fg-muted)">
         <span>▸ RAW · HEIC · video</span>
         <span>▸ powered by ExifTool + libvips</span>
@@ -130,16 +131,16 @@
         <span style="flex:1;text-align:center;font-family:'Space Mono',monospace;font-size:12px;color:var(--term-dim);margin-right:44px">exifreg</span>
       </div>
       <div style="background:var(--term-bg);padding:20px 18px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.62;color:var(--term-fg);overflow-x:auto">
-<div style="white-space:pre"><span style="color: var(--term-prompt);">$</span> exifreg show IMG_4021.CR3</div>
+<div style="white-space:pre"><span style="color: var(--term-prompt);">$</span> exifreg show DSC02481.ARW</div>
 <div style="white-space:pre;color:var(--term-dim)">┌──────────────────────────┬─────────────────────────┐</div>
-<div style="white-space:pre"><span style="color:var(--term-dim)">│ </span>Camera                   <span style="color:var(--term-dim)">│</span> Canon EOS R6            <span style="color:var(--term-dim)">│</span></div>
+<div style="white-space:pre"><span style="color:var(--term-dim)">│ </span>Camera                   <span style="color:var(--term-dim)">│</span> Sony A7 IV              <span style="color:var(--term-dim)">│</span></div>
 <div style="white-space:pre"><span style="color:var(--term-dim)">│ </span>Shutter count            <span style="color:var(--term-dim)">│</span> 48,213                  <span style="color:var(--term-dim)">│</span></div>
 <div style="white-space:pre"><span style="color:var(--term-dim)">│ </span>Aperture                 <span style="color:var(--term-dim)">│</span> f/2.8                   <span style="color:var(--term-dim)">│</span></div>
 <div style="white-space:pre"><span style="color:var(--term-dim)">│ </span>Shutter                  <span style="color:var(--term-dim)">│</span> 1/250s                  <span style="color:var(--term-dim)">│</span></div>
 <div style="white-space:pre"><span style="color:var(--term-dim)">│ </span>Taken (DateTimeOriginal) <span style="color:var(--term-dim)">│</span> 2026:06:01 14:30:00     <span style="color:var(--term-dim)">│</span></div>
 <div style="white-space:pre"><span style="color:var(--term-dim)">│ </span>GPS                      <span style="color:var(--term-dim)">│</span> -23.550500, -46.633300  <span style="color:var(--term-dim)">│</span></div>
 <div style="white-space:pre;color:var(--term-dim)">└──────────────────────────┴─────────────────────────┘</div>
-<div style="white-space:pre;margin-top:6px"><span style="color: var(--term-prompt);">$</span> exifreg date *.CR3 --shift <span style="color: var(--term-green);">"+2h"</span></div>
+<div style="white-space:pre;margin-top:6px"><span style="color: var(--term-prompt);">$</span> exifreg date *.ARW --shift <span style="color: var(--term-green);">"+2h"</span></div>
 <div style="white-space:pre"><span style="color:var(--term-green)">✓</span> Updated dates on 214 files.</div>
 <div style="white-space:pre;margin-top:6px"><span style="color: var(--term-prompt);">$</span> exifreg resize photo.jpg --max-size 1mb</div>
 <div style="white-space:pre"><span style="color:var(--term-green)">✓</span> photo.jpg (12.3 MB) → photo.resized.jpg (0.98 MB, q74)</div>
@@ -203,7 +204,7 @@
       <div style="border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px;box-shadow:var(--shadow)">
         <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px"><span style="font-family:'Space Mono',monospace;font-size:13px;color:var(--accent);font-weight:700">01</span><h3 style="font-size:20px;margin:0;font-weight:600">Inspect</h3></div>
         <p style="font-size:14.5px;color:var(--fg-2);margin:0 0 18px">Beautiful terminal reports of camera, lens, shutter count and GPS, with one-flag export to Markdown.</p>
-        <div style="background:var(--term-bg);border-radius:10px;padding:14px 16px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.6;color:var(--term-fg);white-space:pre;overflow-x:auto"><span style="color: var(--term-prompt);">$</span> exifreg show IMG_4021.CR3 -e report.md
+        <div style="background:var(--term-bg);border-radius:10px;padding:14px 16px;font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.6;color:var(--term-fg);white-space:pre;overflow-x:auto"><span style="color: var(--term-prompt);">$</span> exifreg show DSC02481.ARW -e report.md
 <span style="color: var(--term-green);">✓</span> Exported metadata report to <span style="color: var(--term-dim);">report.md</span></div>
       </div>
       <!-- Fix -->
@@ -238,7 +239,7 @@
   <!-- COMMANDS -->
   <section id="commands" style="max-width:1120px;margin:0 auto;padding:48px 24px 40px">
     <div style="margin-bottom:30px">
-      <div style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:12px">// 22 commands</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:12px">// 25 commands</div>
       <h2 style="font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(28px,3.6vw,38px);letter-spacing:-.03em;margin:0">One tool, one job each.</h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden">
@@ -405,6 +406,9 @@ class Component extends DCLogic {
         { name: 'contact', desc: 'Client-ready contact sheets with EXIF labels.' },
         { name: 'frame', desc: 'Render photos in colored EXIF frames.' },
         { name: 'resize', desc: 'Resize to an exact target file size.' },
+        { name: 'config', desc: 'Save defaults: your name, backup drive, frame color.' },
+        { name: 'history', desc: 'See every operation that changed your files.' },
+        { name: 'completion', desc: 'Tab completion for bash, zsh and fish.' },
         { name: 'doctor', desc: 'Check your setup and dependencies.' },
       ],
       palette: [

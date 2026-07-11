@@ -106,7 +106,7 @@
 
 <div class="layout">
   <aside>
-    <div class="side-group"><div class="side-title mono">Inspect & analyze</div><a href="#show" class="mono">show</a><a href="#diff" class="mono">diff</a><a href="#stats" class="mono">stats</a><a href="#find" class="mono">find</a></div><div class="side-group"><div class="side-title mono">Edit metadata</div><a href="#gps" class="mono">gps</a><a href="#date" class="mono">date</a><a href="#timezone" class="mono">timezone</a><a href="#copy" class="mono">copy</a><a href="#sign" class="mono">sign</a><a href="#strip" class="mono">strip</a><a href="#undo" class="mono">undo</a></div><div class="side-group"><div class="side-title mono">Organize files</div><a href="#organize" class="mono">organize</a><a href="#rename" class="mono">rename</a><a href="#ingest" class="mono">ingest</a><a href="#split" class="mono">split</a><a href="#dupes" class="mono">dupes</a></div><div class="side-group"><div class="side-title mono">Archive</div><a href="#backup" class="mono">backup</a><a href="#restore" class="mono">restore</a></div><div class="side-group"><div class="side-title mono">Prepare & publish</div><a href="#frame" class="mono">frame</a><a href="#resize" class="mono">resize</a><a href="#contact" class="mono">contact</a></div><div class="side-group"><div class="side-title mono">Utility</div><a href="#doctor" class="mono">doctor</a></div>
+    <div class="side-group"><div class="side-title mono">Inspect & analyze</div><a href="#show" class="mono">show</a><a href="#diff" class="mono">diff</a><a href="#stats" class="mono">stats</a><a href="#find" class="mono">find</a></div><div class="side-group"><div class="side-title mono">Edit metadata</div><a href="#gps" class="mono">gps</a><a href="#date" class="mono">date</a><a href="#timezone" class="mono">timezone</a><a href="#copy" class="mono">copy</a><a href="#sign" class="mono">sign</a><a href="#strip" class="mono">strip</a><a href="#undo" class="mono">undo</a></div><div class="side-group"><div class="side-title mono">Organize files</div><a href="#organize" class="mono">organize</a><a href="#rename" class="mono">rename</a><a href="#ingest" class="mono">ingest</a><a href="#split" class="mono">split</a><a href="#dupes" class="mono">dupes</a></div><div class="side-group"><div class="side-title mono">Archive</div><a href="#backup" class="mono">backup</a><a href="#restore" class="mono">restore</a></div><div class="side-group"><div class="side-title mono">Prepare & publish</div><a href="#frame" class="mono">frame</a><a href="#resize" class="mono">resize</a><a href="#contact" class="mono">contact</a></div><div class="side-group"><div class="side-title mono">Utility</div><a href="#config" class="mono">config</a><a href="#history" class="mono">history</a><a href="#completion" class="mono">completion</a><a href="#doctor" class="mono">doctor</a></div>
     <div class="side-group"><div class="side-title mono">Reference</div><a href="#conventions" class="mono">conventions</a><a href="#placeholders" class="mono">placeholders</a></div>
   </aside>
 
@@ -129,7 +129,7 @@
     <div class="conv" id="placeholders">
       <h3>Pattern placeholders (organize, rename, ingest, backup --by)</h3>
       <div class="tscroll"><table class="opts"><tr><th>Placeholder</th><th>Meaning</th></tr>
-      <tr><td class="mono">{year} {month} {day}</td><td>capture date parts (from DateTimeOriginal, with sensible fallbacks)</td></tr><tr><td class="mono">{date}</td><td>2026-07-05</td></tr><tr><td class="mono">{time} {hour} {minute} {second}</td><td>capture time parts</td></tr><tr><td class="mono">{camera}</td><td>camera model, e.g. Canon EOS R6</td></tr><tr><td class="mono">{lens}</td><td>lens model</td></tr><tr><td class="mono">{type}</td><td>Photos, RAW or Videos</td></tr><tr><td class="mono">{name} {ext}</td><td>original file name / extension</td></tr><tr><td class="mono">{city} {region} {country}</td><td>from GPS, resolved offline</td></tr><tr><td class="mono">{counter} {counter:4}</td><td>sequence number in shooting order, optionally padded</td></tr>
+      <tr><td class="mono">{year} {month} {day}</td><td>capture date parts (from DateTimeOriginal, with sensible fallbacks)</td></tr><tr><td class="mono">{date}</td><td>2026-07-05</td></tr><tr><td class="mono">{time} {hour} {minute} {second}</td><td>capture time parts</td></tr><tr><td class="mono">{camera}</td><td>camera model, e.g. Sony A7 IV</td></tr><tr><td class="mono">{lens}</td><td>lens model</td></tr><tr><td class="mono">{type}</td><td>Photos, RAW or Videos</td></tr><tr><td class="mono">{name} {ext}</td><td>original file name / extension</td></tr><tr><td class="mono">{city} {region} {country}</td><td>from GPS, resolved offline</td></tr><tr><td class="mono">{counter} {counter:4}</td><td>sequence number in shooting order, optionally padded</td></tr>
       </table></div>
     </div>
 
@@ -143,7 +143,7 @@
       <p>Prints a curated metadata report: camera, lens, shutter count, serial number, full exposure block, dates, GPS. Use it any time you need to know what a file really says about itself: checking gear info before selling a camera, confirming a fix worked, or reading the shutter count of a body you are about to buy.</p>
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-v, --verbose</td><td>also list every remaining tag after the key fields</td><td class="mono soft"></td></tr><tr><td class="mono">-a, --all</td><td>flat alphabetical dump of every tag (raw values)</td><td class="mono soft"></td></tr><tr><td class="mono">--json</td><td>machine-readable output for scripts</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">-e, --export [file.md]</td><td>also save the report as Markdown</td><td class="mono soft">&lt;name&gt;.metadata.md</td></tr></table></div>
       
-      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg show IMG_4021.CR3  <span class="d"># key fields for one file</span></div>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg show DSC02481.ARW  <span class="d"># key fields for one file</span></div>
 <div><span class="p">$</span> exifreg show trip/ -r -v  <span class="d"># whole folder, every tag</span></div>
 <div><span class="p">$</span> exifreg show photo.jpg -e report.md  <span class="d"># archive the report as Markdown</span></div></div></div>
     </article>
@@ -154,7 +154,7 @@
       <p>Compares the metadata of two files side by side and shows only what differs. Typical case: an exported JPEG next to its RAW, to see exactly what the editor changed, kept or stripped. Filesystem identity tags (name, folder, access dates) are excluded so the table stays meaningful.</p>
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-a, --all</td><td>also list the tags whose values are identical</td><td class="mono soft"></td></tr></table></div>
       
-      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg diff original.CR3 exported.jpg  <span class="d"># what did the export change?</span></div></div></div>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg diff original.ARW exported.jpg  <span class="d"># what did the export change?</span></div></div></div>
     </article>
 
     <article class="cmd" id="stats">
@@ -170,11 +170,11 @@
     <article class="cmd" id="find">
       <h3 class="mono"><span class="accent">exifreg</span> find</h3>
       <div class="usage mono">exifreg find &lt;paths...&gt; -w "&lt;condition&gt;" [options]</div>
-      <p>Queries files by metadata and prints matching paths, one per line, ready to pipe into any other command. Conditions look like ISO&gt;3200, Model=Canon EOS R6 or LensModel~35mm. Repeat -w to AND conditions. Numbers compare numerically; EXIF dates compare chronologically; ~ means contains.</p>
+      <p>Queries files by metadata and prints matching paths, one per line, ready to pipe into any other command. Conditions look like ISO&gt;3200, Model=Sony A7 IV or LensModel~35mm. Repeat -w to AND conditions. Numbers compare numerically; EXIF dates compare chronologically; ~ means contains.</p>
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-w, --where &lt;condition&gt;</td><td>required; repeat to combine with AND</td><td class="mono soft"></td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr></table></div>
       <p class="notes">Operators: = != &gt; &gt;= &lt; &lt;= and ~ (contains). Keys and string values are case-insensitive. Exit code is 1 when nothing matches, so it behaves well in scripts.</p>
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg find . -w "ISO&gt;3200"  <span class="d"># the noisy ones</span></div>
-<div><span class="p">$</span> exifreg find . -w "Model~canon" -w "DateTimeOriginal&gt;=2026:07"  <span class="d"># Canon shots since July</span></div>
+<div><span class="p">$</span> exifreg find . -w "Model~sony" -w "DateTimeOriginal&gt;=2026:07"  <span class="d"># Sony shots since July</span></div>
 <div><span class="p">$</span> exifreg find . -w "GPSLatitude&gt;0" | xargs exifreg gps --remove  <span class="d"># strip GPS wherever it exists</span></div></div></div>
     </article>
   </section>
@@ -198,7 +198,7 @@
       <p>Fixes capture and modification dates. The killer option is --shift: when the camera clock was wrong or on the wrong timezone, shift every date by the same amount without touching anything else. Accepts friendly date forms like 2026-07-05 14:30 or 05/07/2026.</p>
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-t, --taken &lt;datetime&gt;</td><td>capture date (DateTimeOriginal + CreateDate)</td><td class="mono soft"></td></tr><tr><td class="mono">-m, --modified &lt;datetime&gt;</td><td>metadata modification date</td><td class="mono soft"></td></tr><tr><td class="mono">--all &lt;datetime&gt;</td><td>set taken, created and modified at once</td><td class="mono soft"></td></tr><tr><td class="mono">-s, --shift "&lt;amount&gt;"</td><td>shift all dates: "+2h", "-30m", "+1d 2h30m"</td><td class="mono soft"></td></tr><tr><td class="mono">--sync-file</td><td>also set the file's own modified date to the capture date</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
-      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg date *.CR3 --shift "+2h"  <span class="d"># clock was two hours behind</span></div>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg date *.ARW --shift "+2h"  <span class="d"># clock was two hours behind</span></div>
 <div><span class="p">$</span> exifreg date scan.jpg --taken "1994-12-25"  <span class="d"># date a scanned print</span></div></div></div>
     </article>
 
@@ -218,7 +218,7 @@
       <p>Copies all metadata from one file onto others. The classic case: an export or a panorama stitch came out clean of EXIF, and you want the original's camera info, dates and GPS back on it.</p>
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
-      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg copy original.CR3 stitched-pano.jpg  <span class="d"># restore lost EXIF</span></div></div></div>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg copy original.ARW stitched-pano.jpg  <span class="d"># restore lost EXIF</span></div></div></div>
     </article>
 
     <article class="cmd" id="sign">
@@ -271,7 +271,7 @@
       <p>Renames files in place from their metadata, keeping pairs and sidecars in matching names. {counter} numbers files in shooting order, which fixes the classic two-cameras-same-counter mess.</p>
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-p, --pattern "&lt;pattern&gt;"</td><td>filename pattern</td><td class="mono soft">{date}_{time}_{name}</td></tr><tr><td class="mono">-r, --recursive</td><td>recurse into subfolders</td><td class="mono soft"></td></tr><tr><td class="mono">--apply</td><td>execute (default is a preview)</td><td class="mono soft"></td></tr><tr><td class="mono">--undo &lt;folder&gt;</td><td>revert the last rename in that folder</td><td class="mono soft"></td></tr></table></div>
       
-      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg rename . -p "wedding_{counter:3}" --apply  <span class="d"># wedding_001.CR3, _002...</span></div></div></div>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg rename . -p "wedding_{counter:3}" --apply  <span class="d"># wedding_001.ARW, _002...</span></div></div></div>
     </article>
 
     <article class="cmd" id="ingest">
@@ -336,7 +336,7 @@
       <p>Re-renders photos inside an aesthetic colored frame with their exposure caption in Space Mono: the "shot on" portfolio look. RAW files work through their embedded previews. The output keeps the original photo's EXIF.</p>
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-c, --color &lt;name|#hex&gt;</td><td>frame color; list all 21 with --colors</td><td class="mono soft">white</td></tr><tr><td class="mono">--ratio &lt;W:H|original&gt;</td><td>"1:1", "4:5", "9:16", "3:2"...</td><td class="mono soft">original</td></tr><tr><td class="mono">--caption &lt;pos&gt;</td><td>bottom, top or none</td><td class="mono soft">bottom</td></tr><tr><td class="mono">--camera</td><td>include the camera model in the caption</td><td class="mono soft"></td></tr><tr><td class="mono">--margin &lt;pct&gt;</td><td>margin around the photo</td><td class="mono soft">6</td></tr><tr><td class="mono">--size &lt;px|full&gt;</td><td>"full" keeps the photo at native resolution</td><td class="mono soft">3000</td></tr><tr><td class="mono">-q, --quality &lt;1-100&gt;</td><td>JPEG quality of the render</td><td class="mono soft">95</td></tr><tr><td class="mono">-o, --out &lt;dir&gt;</td><td>output folder</td><td class="mono soft">next to each photo</td></tr><tr><td class="mono">--colors</td><td>list the palette with names and hex codes</td><td class="mono soft"></td></tr></table></div>
       
-      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg frame photo.CR3 -c off-white --ratio 4:5  <span class="d"># Instagram-ready</span></div>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg frame photo.ARW -c off-white --ratio 4:5  <span class="d"># Instagram-ready</span></div>
 <div><span class="p">$</span> exifreg frame photo.jpg -c sage --caption none --size full  <span class="d"># just the frame, print-grade</span></div></div></div>
     </article>
 
@@ -363,10 +363,41 @@
   <section id="utility">
     <h2 class="mono group-title">Utility</h2>
     
+    <article class="cmd" id="config">
+      <h3 class="mono"><span class="accent">exifreg</span> config</h3>
+      <div class="usage mono">exifreg config [key] [value] [options]</div>
+      <p>Saves defaults so you stop repeating flags: your name and copyright for sign, a default backup drive, a favorite frame color. Stored in ~/.config/exifregistry/config.json. Run it with no arguments to see current settings.</p>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--keys</td><td>list every settable key</td><td class="mono soft"></td></tr><tr><td class="mono">--path</td><td>print the config file location</td><td class="mono soft"></td></tr></table></div>
+      <p class="notes">Keys: sign.artist, sign.copyright, backup.to, frame.color. An empty value unsets a key.</p>
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg config sign.artist "Davi Arndt"  <span class="d"># set your name once</span></div>
+<div><span class="p">$</span> exifreg config backup.to "/Volumes/Backup"  <span class="d"># default backup drive</span></div>
+<div><span class="p">$</span> exifreg config  <span class="d"># show everything you have set</span></div></div></div>
+    </article>
+
+    <article class="cmd" id="history">
+      <h3 class="mono"><span class="accent">exifreg</span> history</h3>
+      <div class="usage mono">exifreg history [options]</div>
+      <p>Shows the operations that changed your files, newest first: what ran, when, and how many files it touched. A quiet paper trail for a tool that edits irreplaceable work.</p>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-n, --limit &lt;n&gt;</td><td>how many entries to show</td><td class="mono soft">20</td></tr><tr><td class="mono">--clear</td><td>erase the log</td><td class="mono soft"></td></tr><tr><td class="mono">--path</td><td>print the log file location</td><td class="mono soft"></td></tr></table></div>
+      
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg history  <span class="d"># the last 20 operations</span></div>
+<div><span class="p">$</span> exifreg history -n 100  <span class="d"># look further back</span></div></div></div>
+    </article>
+
+    <article class="cmd" id="completion">
+      <h3 class="mono"><span class="accent">exifreg</span> completion</h3>
+      <div class="usage mono">exifreg completion &lt;shell&gt;</div>
+      <p>Prints a shell completion script so pressing Tab suggests commands. Supports bash, zsh and fish.</p>
+      
+      
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg completion zsh &gt; "${fpath[1]}/_exifreg"  <span class="d"># install for zsh</span></div>
+<div><span class="p">$</span> exifreg completion fish &gt; ~/.config/fish/completions/exifreg.fish  <span class="d"># install for fish</span></div></div></div>
+    </article>
+
     <article class="cmd" id="doctor">
       <h3 class="mono"><span class="accent">exifreg</span> doctor</h3>
       <div class="usage mono">exifreg doctor</div>
-      <p>Checks that the installation is healthy: version and the bundled ExifTool responding. Run it once after installing, or when something feels off.</p>
+      <p>Checks that the installation is healthy: version, the bundled ExifTool responding, and how many config settings you have. Run it once after installing, or when something feels off.</p>
       
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg doctor  <span class="d"># all green in one second</span></div></div></div>
