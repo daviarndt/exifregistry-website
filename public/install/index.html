@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install exifregistry on your computer</title>
+<meta name="description" content="A friendly, step-by-step guide to installing exifregistry on macOS, Windows or Linux. Written for photographers, no technical experience needed.">
+<link rel="canonical" href="https://exifregistry.com/install/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://exifregistry.com/install/">
+<meta property="og:title" content="Install exifregistry on your computer">
+<meta property="og:description" content="A friendly, step-by-step install guide for photographers. macOS, Windows and Linux.">
+<meta property="og:image" content="https://exifregistry.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Install exifregistry on your computer">
+<meta name="twitter:image" content="https://exifregistry.com/og.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF4EC">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2A2320">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{margin:0}
+  :root{
+    --bg:#FAF4EC; --surface:#FFFFFF; --surface-2:#F6F1E7;
+    --border:#E7DDCD; --border-strong:#D7CCB9;
+    --fg:#2E2E2E; --fg-2:#5A5149; --fg-muted:#8A8073;
+    --accent:#C4704F; --accent-strong:#A85638; --link:#A85638;
+    --term-bg:#241C18; --term-fg:#EDE4D6; --term-dim:#A9998A; --term-prompt:#DD9273;
+    --chrome:rgba(250,244,236,.72);
+    --shadow:0 1px 2px rgba(46,34,26,.06),0 12px 40px -12px rgba(46,34,26,.18);
+  }
+  :root[data-theme="dark"]{
+    --bg:#2A2320; --surface:#332B27; --surface-2:#2F2723;
+    --border:#43392F; --border-strong:#55483B;
+    --fg:#F3EADC; --fg-2:#CFC4B4; --fg-muted:#9A8E7E;
+    --accent:#D08869; --accent-strong:#E0A184; --link:#E0A184;
+    --chrome:rgba(42,35,32,.72);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 44px -14px rgba(0,0,0,.55);
+  }
+  body{background:var(--bg);color:var(--fg);font-family:'IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+  a{color:var(--link);text-decoration:none}
+  a:hover{color:var(--accent-strong)}
+  ::selection{background:var(--accent);color:#fff}
+  .mono{font-family:'Space Mono',ui-monospace,monospace}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  h1{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(30px,4.4vw,44px);letter-spacing:-.03em;margin:0 0 12px}
+  h2{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em;margin:0 0 4px}
+  .lead{font-size:17px;color:var(--fg-2);margin:0 0 8px}
+  .tabs{display:flex;gap:8px;margin:26px 0 8px;flex-wrap:wrap}
+  .tab{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;padding:10px 18px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--fg-2);cursor:pointer;transition:all .15s}
+  .tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .detected{font-size:13.5px;color:var(--fg-muted);margin-bottom:18px}
+  .panel{display:none}
+  .panel.active{display:block}
+  .step{display:flex;gap:16px;padding:22px 0;border-top:1px solid var(--border)}
+  .step:first-of-type{border-top:none}
+  .num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Space Mono',monospace;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .step-body{min-width:0;flex:1}
+  .step-body p{margin:0 0 12px;color:var(--fg-2);font-size:15.5px}
+  .step-body p:first-child{color:var(--fg);font-weight:600;font-size:16px;margin-bottom:6px}
+  .cmd{display:flex;align-items:center;gap:10px;background:var(--term-bg);border-radius:10px;padding:12px 12px 12px 16px;font-family:'Space Mono',monospace;font-size:13.5px;color:var(--term-fg);overflow-x:auto;box-shadow:var(--shadow)}
+  .cmd .code{white-space:nowrap;flex:1}
+  .cmd .prompt{color:var(--term-prompt)}
+  .copy{flex-shrink:0;border:none;background:rgba(255,255,255,.08);color:var(--term-dim);cursor:pointer;font-family:'Space Mono',monospace;font-size:12px;padding:7px 12px;border-radius:7px;transition:background .2s}
+  .copy:hover{background:rgba(255,255,255,.16)}
+  .note{font-size:13.5px;color:var(--fg-muted);margin-top:10px}
+  .callout{border:1px solid var(--border);background:var(--surface);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow);margin-top:34px}
+  .callout h2{margin-bottom:10px}
+  .btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:11px;background:var(--fg);color:var(--bg);font-weight:600;font-size:14.5px;margin-top:4px}
+  .btn:hover{color:var(--bg);opacity:.9}
+  @media (max-width:560px){ .nav-link{display:none} header nav{gap:10px !important;padding-left:16px !important;padding-right:16px !important} }
+</style>
+</head>
+<body>
+
+<header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:var(--chrome);border-bottom:1px solid var(--border)">
+  <nav style="max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:22px">
+    <a href="/" style="display:flex;align-items:center;gap:10px;color:var(--fg);flex-shrink:0;white-space:nowrap">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"><path d="M4 10V4H10"/><path d="M22 4H28V10"/><path d="M28 22V28H22"/><path d="M10 28H4V22"/></g><rect x="12" y="12" width="8" height="8" rx="1.5" fill="var(--accent)"/></svg>
+      <span class="mono" style="font-weight:700;font-size:17px;letter-spacing:-.02em">exifregistry</span>
+      <span class="mono nav-link" style="font-size:12px;color:var(--fg-muted);border:1px solid var(--border-strong);border-radius:999px;padding:3px 10px">/install</span>
+    </a>
+    <div style="flex:1"></div>
+    <a href="/" class="nav-link" style="font-size:14px;color:var(--fg-2)">Home</a>
+    <a href="/docs/" class="nav-link" style="font-size:14px;color:var(--fg-2)">Docs</a>
+    <a href="https://buymeacoffee.com/daviarndtx" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--fg);border:1px solid var(--border-strong);background:var(--surface);border-radius:999px;padding:7px 13px;white-space:nowrap">☕<span class="nav-link"> Buy me a coffee</span></a>
+    <button id="themeToggle" aria-label="Toggle color theme" style="width:36px;height:36px;border-radius:9px;border:1px solid var(--border-strong);background:var(--surface);color:var(--fg);cursor:pointer;font-size:15px">☾</button>
+  </nav>
+</header>
+
+<main class="wrap" style="padding-top:56px;padding-bottom:40px">
+  <h1>Let's get you set up.</h1>
+  <p class="lead">exifregistry runs in your computer's Terminal, a simple app where you type one line at a time. Don't worry if you have never used it: this page walks you through every step, and you only ever copy and paste.</p>
+  <p class="detected mono" id="detected">Detecting your computer...</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-os="mac" aria-selected="false">macOS</button>
+    <button class="tab" role="tab" data-os="windows" aria-selected="false">Windows</button>
+    <button class="tab" role="tab" data-os="linux" aria-selected="false">Linux</button>
+  </div>
+
+  <!-- macOS -->
+  <section class="panel" data-os="mac">
+    <div class="step">
+      <div class="num">1</div>
+      <div class="step-body">
+        <p>Open the Terminal.</p>
+        <p>Press <b>Cmd + Space</b> to open Spotlight, type <b>Terminal</b>, and press Enter. A window with a blinking cursor appears. That is where the commands go.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="step-body">
+        <p>Install Homebrew (once).</p>
+        <p>Homebrew is a free tool that installs apps like this one. Copy the line below, paste it into the Terminal, press Enter, and follow the prompts (it may ask for your Mac password).</p>
+        <div class="cmd"><span class="code"><span class="prompt">$</span> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span><button class="copy">copy</button></div>
+        <p class="note">Already have Homebrew? Skip straight to step 3.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <div class="step-body">
+        <p>Install exifregistry.</p>
+        <p>Paste this line and press Enter. It takes a minute.</p>
+        <div class="cmd"><span class="code"><span class="prompt">$</span> brew install daviarndt/tap/exifregistry</span><button class="copy">copy</button></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <div class="step-body">
+        <p>Check that it worked.</p>
+        <div class="cmd"><span class="code"><span class="prompt">$</span> exifreg doctor</span><button class="copy">copy</button></div>
+        <p class="note">You should see a green check and "Everything looks good."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Windows -->
+  <section class="panel" data-os="windows">
+    <div class="step">
+      <div class="num">1</div>
+      <div class="step-body">
+        <p>Install Node.js.</p>
+        <p>Node.js is the free engine exifregistry runs on. Click the button, download the <b>LTS</b> version, and run the installer (keep clicking Next, then Finish).</p>
+        <a class="btn" href="https://nodejs.org/en/download" target="_blank" rel="noopener">Download Node.js (LTS)</a>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="step-body">
+        <p>Open PowerShell.</p>
+        <p>Click the Start menu, type <b>PowerShell</b>, and press Enter. A blue window with a cursor appears. That is where the command goes.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <div class="step-body">
+        <p>Install exifregistry.</p>
+        <p>Copy the line below, paste it (right-click pastes in PowerShell), and press Enter.</p>
+        <div class="cmd"><span class="code"><span class="prompt">></span> npm install -g exifregistry</span><button class="copy">copy</button></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <div class="step-body">
+        <p>Check that it worked.</p>
+        <div class="cmd"><span class="code"><span class="prompt">></span> exifreg doctor</span><button class="copy">copy</button></div>
+        <p class="note">You should see a green check and "Everything looks good." One note for Windows: framing HEIC files from an iPhone is not supported yet; every other format and command works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Linux -->
+  <section class="panel" data-os="linux">
+    <div class="step">
+      <div class="num">1</div>
+      <div class="step-body">
+        <p>Install Node.js.</p>
+        <p>Use your distribution's package manager, or <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">download it from nodejs.org</a>. On Debian/Ubuntu:</p>
+        <div class="cmd"><span class="code"><span class="prompt">$</span> sudo apt install -y nodejs npm</span><button class="copy">copy</button></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="step-body">
+        <p>Install exifregistry.</p>
+        <div class="cmd"><span class="code"><span class="prompt">$</span> npm install -g exifregistry</span><button class="copy">copy</button></div>
+        <p class="note">Prefer Homebrew on Linux? <span class="mono">brew install daviarndt/tap/exifregistry</span> works too.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <div class="step-body">
+        <p>Check that it worked.</p>
+        <div class="cmd"><span class="code"><span class="prompt">$</span> exifreg doctor</span><button class="copy">copy</button></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="callout">
+    <h2>You're in. Now what?</h2>
+    <p class="lead" style="margin-bottom:14px">The easiest way to start: just type <span class="mono" style="font-size:14px">exifreg</span> and press Enter. A friendly menu opens and walks you through everything, no commands to memorize.</p>
+    <div class="cmd" style="max-width:280px"><span class="code"><span class="prompt">$</span> exifreg</span><button class="copy">copy</button></div>
+    <p style="margin-top:16px;font-size:15px;color:var(--fg-2)">When you are ready for the full command list, the <a href="/docs/">documentation</a> has every option with examples. And whenever you want to check for a newer version, run <span class="mono" style="font-size:14px">exifreg update</span>.</p>
+  </div>
+</main>
+
+<footer style="border-top:1px solid var(--border);margin-top:40px">
+  <div style="max-width:1120px;margin:0 auto;padding:32px 24px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between">
+    <span class="mono" style="font-weight:700;font-size:15px">exif<span style="color:var(--accent)">registry</span></span>
+    <div style="display:flex;gap:22px;font-size:13.5px;color:var(--fg-2);flex-wrap:wrap">
+      <a href="/docs/">Docs</a>
+      <a href="https://github.com/daviarndt/exifregistry">GitHub</a>
+      <a href="https://buymeacoffee.com/daviarndtx">☕ Buy me a coffee</a>
+      <span>MIT License</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var stored = null; try { stored = localStorage.getItem("theme"); } catch (e) {}
+  var theme = stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  applyTheme(theme);
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    theme = theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", theme); } catch (e) {}
+    applyTheme(theme);
+  });
+  function applyTheme(t) {
+    root.setAttribute("data-theme", t);
+    document.getElementById("themeToggle").textContent = t === "dark" ? "☀" : "☾";
+  }
+
+  // OS detection
+  function detectOS() {
+    var s = ((navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || navigator.userAgent || "").toLowerCase();
+    if (s.indexOf("win") !== -1) return "windows";
+    if (s.indexOf("mac") !== -1 || s.indexOf("iphone") !== -1 || s.indexOf("ipad") !== -1) return "mac";
+    if (s.indexOf("linux") !== -1 || s.indexOf("android") !== -1) return "linux";
+    return "mac";
+  }
+  var names = { mac: "macOS", windows: "Windows", linux: "Linux" };
+  var detected = detectOS();
+  document.getElementById("detected").textContent = "It looks like you are on " + names[detected] + ". Not right? Pick your system below.";
+
+  var tabs = [].slice.call(document.querySelectorAll(".tab"));
+  var panels = [].slice.call(document.querySelectorAll(".panel"));
+  function select(os) {
+    tabs.forEach(function (t) { t.setAttribute("aria-selected", t.dataset.os === os ? "true" : "false"); });
+    panels.forEach(function (p) { p.classList.toggle("active", p.dataset.os === os); });
+  }
+  tabs.forEach(function (t) { t.addEventListener("click", function () { select(t.dataset.os); }); });
+  select(detected);
+
+  // Copy buttons
+  [].slice.call(document.querySelectorAll(".copy")).forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var code = btn.parentElement.querySelector(".code").textContent.replace(/^[$>]\s*/, "").trim();
+      try {
+        navigator.clipboard.writeText(code);
+        var old = btn.textContent; btn.textContent = "copied";
+        setTimeout(function () { btn.textContent = old; }, 1500);
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>

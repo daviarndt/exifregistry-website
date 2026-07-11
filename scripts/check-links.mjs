@@ -69,6 +69,18 @@ if (docs.includes("exif-registry")) problems.push("hyphenated name in docs page"
 if (docs.includes("\u2014")) problems.push("em-dash in docs page");
 if (!html.includes('href="/docs/"')) problems.push("home page does not link to /docs/");
 
+// --- install page
+const install = readFileSync("public/install/index.html", "utf8");
+for (const [needle, label] of [
+  ['rel="canonical" href="https://exifregistry.com/install/"', "install canonical"],
+  ["npm install -g exifregistry", "install page npm command"],
+  ["brew install daviarndt/tap/exifregistry", "install page brew command"],
+  ["nodejs.org", "install page Node.js link"],
+]) { if (!install.includes(needle)) problems.push(`install page missing: ${label}`); }
+if (install.includes("exif-registry")) problems.push("hyphenated name in install page");
+if (install.includes("\u2014")) problems.push("em-dash in install page");
+if (!html.includes('href="/install/"')) problems.push("home page does not link to /install/");
+
 if (problems.length > 0) {
   console.error("Site check FAILED:");
   for (const p of problems) console.error(`  \u2717 ${p}`);

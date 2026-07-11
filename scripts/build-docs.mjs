@@ -136,6 +136,22 @@ const GROUPS = [
         examples: [["exifreg copy original.ARW stitched-pano.jpg", "restore lost EXIF"]],
       },
       {
+        name: "copydates",
+        usage: "exifreg copydates <source> <targets...> [options]",
+        summary:
+          "Copies only the dates from one file onto others, and lets you choose which: capture, modified, or all. Handy when a scan or an export lost its dates but a sibling file still has them.",
+        options: [
+          ["-t, --taken", "copy the capture date (DateTimeOriginal + CreateDate)"],
+          ["-m, --modified", "copy the modification date"],
+          ["--all", "copy all dates (default)"],
+          ["--no-backup", "skip the automatic backup"],
+        ],
+        examples: [
+          ["exifreg copydates raw.ARW scan.jpg --taken", "just the capture date"],
+          ["exifreg copydates raw.ARW scan.jpg", "all dates at once"],
+        ],
+      },
+      {
         name: "sign",
         usage: "exifreg sign <files...> [options]",
         summary:
@@ -409,6 +425,14 @@ const GROUPS = [
           ['exifreg completion zsh > "${fpath[1]}/_exifreg"', "install for zsh"],
           ["exifreg completion fish > ~/.config/fish/completions/exifreg.fish", "install for fish"],
         ],
+      },
+      {
+        name: "update",
+        usage: "exifreg update",
+        summary:
+          "Checks npm for a newer version and tells you how to upgrade. This is the only command that uses the network, and only when you run it: everything else is 100% local.",
+        options: [],
+        examples: [["exifreg update", "am I on the latest?"]],
       },
       {
         name: "doctor",

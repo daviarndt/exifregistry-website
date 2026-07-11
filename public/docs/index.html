@@ -106,7 +106,7 @@
 
 <div class="layout">
   <aside>
-    <div class="side-group"><div class="side-title mono">Inspect & analyze</div><a href="#show" class="mono">show</a><a href="#diff" class="mono">diff</a><a href="#stats" class="mono">stats</a><a href="#find" class="mono">find</a></div><div class="side-group"><div class="side-title mono">Edit metadata</div><a href="#gps" class="mono">gps</a><a href="#date" class="mono">date</a><a href="#timezone" class="mono">timezone</a><a href="#copy" class="mono">copy</a><a href="#sign" class="mono">sign</a><a href="#strip" class="mono">strip</a><a href="#undo" class="mono">undo</a></div><div class="side-group"><div class="side-title mono">Organize files</div><a href="#organize" class="mono">organize</a><a href="#rename" class="mono">rename</a><a href="#ingest" class="mono">ingest</a><a href="#split" class="mono">split</a><a href="#dupes" class="mono">dupes</a></div><div class="side-group"><div class="side-title mono">Archive</div><a href="#backup" class="mono">backup</a><a href="#restore" class="mono">restore</a></div><div class="side-group"><div class="side-title mono">Prepare & publish</div><a href="#frame" class="mono">frame</a><a href="#resize" class="mono">resize</a><a href="#contact" class="mono">contact</a></div><div class="side-group"><div class="side-title mono">Utility</div><a href="#config" class="mono">config</a><a href="#history" class="mono">history</a><a href="#completion" class="mono">completion</a><a href="#doctor" class="mono">doctor</a></div>
+    <div class="side-group"><div class="side-title mono">Inspect & analyze</div><a href="#show" class="mono">show</a><a href="#diff" class="mono">diff</a><a href="#stats" class="mono">stats</a><a href="#find" class="mono">find</a></div><div class="side-group"><div class="side-title mono">Edit metadata</div><a href="#gps" class="mono">gps</a><a href="#date" class="mono">date</a><a href="#timezone" class="mono">timezone</a><a href="#copy" class="mono">copy</a><a href="#copydates" class="mono">copydates</a><a href="#sign" class="mono">sign</a><a href="#strip" class="mono">strip</a><a href="#undo" class="mono">undo</a></div><div class="side-group"><div class="side-title mono">Organize files</div><a href="#organize" class="mono">organize</a><a href="#rename" class="mono">rename</a><a href="#ingest" class="mono">ingest</a><a href="#split" class="mono">split</a><a href="#dupes" class="mono">dupes</a></div><div class="side-group"><div class="side-title mono">Archive</div><a href="#backup" class="mono">backup</a><a href="#restore" class="mono">restore</a></div><div class="side-group"><div class="side-title mono">Prepare & publish</div><a href="#frame" class="mono">frame</a><a href="#resize" class="mono">resize</a><a href="#contact" class="mono">contact</a></div><div class="side-group"><div class="side-title mono">Utility</div><a href="#config" class="mono">config</a><a href="#history" class="mono">history</a><a href="#completion" class="mono">completion</a><a href="#update" class="mono">update</a><a href="#doctor" class="mono">doctor</a></div>
     <div class="side-group"><div class="side-title mono">Reference</div><a href="#conventions" class="mono">conventions</a><a href="#placeholders" class="mono">placeholders</a></div>
   </aside>
 
@@ -219,6 +219,16 @@
       <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg copy original.ARW stitched-pano.jpg  <span class="d"># restore lost EXIF</span></div></div></div>
+    </article>
+
+    <article class="cmd" id="copydates">
+      <h3 class="mono"><span class="accent">exifreg</span> copydates</h3>
+      <div class="usage mono">exifreg copydates &lt;source&gt; &lt;targets...&gt; [options]</div>
+      <p>Copies only the dates from one file onto others, and lets you choose which: capture, modified, or all. Handy when a scan or an export lost its dates but a sibling file still has them.</p>
+      <div class="tscroll"><table class="opts"><tr><th>Option</th><th>What it does</th><th>Default</th></tr><tr><td class="mono">-t, --taken</td><td>copy the capture date (DateTimeOriginal + CreateDate)</td><td class="mono soft"></td></tr><tr><td class="mono">-m, --modified</td><td>copy the modification date</td><td class="mono soft"></td></tr><tr><td class="mono">--all</td><td>copy all dates (default)</td><td class="mono soft"></td></tr><tr><td class="mono">--no-backup</td><td>skip the automatic backup</td><td class="mono soft"></td></tr></table></div>
+      
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg copydates raw.ARW scan.jpg --taken  <span class="d"># just the capture date</span></div>
+<div><span class="p">$</span> exifreg copydates raw.ARW scan.jpg  <span class="d"># all dates at once</span></div></div></div>
     </article>
 
     <article class="cmd" id="sign">
@@ -394,6 +404,15 @@
       
       <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg completion zsh &gt; "${fpath[1]}/_exifreg"  <span class="d"># install for zsh</span></div>
 <div><span class="p">$</span> exifreg completion fish &gt; ~/.config/fish/completions/exifreg.fish  <span class="d"># install for fish</span></div></div></div>
+    </article>
+
+    <article class="cmd" id="update">
+      <h3 class="mono"><span class="accent">exifreg</span> update</h3>
+      <div class="usage mono">exifreg update</div>
+      <p>Checks npm for a newer version and tells you how to upgrade. This is the only command that uses the network, and only when you run it: everything else is 100% local.</p>
+      
+      
+      <div class="term"><div class="term-body"><div><span class="p">$</span> exifreg update  <span class="d"># am I on the latest?</span></div></div></div>
     </article>
 
     <article class="cmd" id="doctor">
